@@ -1,0 +1,26 @@
+{% extends "base.html"  %}
+{% block title %} {{ head_title }} {% endblock %}
+<div class="wrapperdiv">
+{% block head %} {{ page_title }}{% endblock %}
+{% block content %}
+
+<div>
+	{% if account %}
+		<div>
+                    You have successfully added or edited a disciplinary action for incident number <b>{{ incident.mi_incident_id }}</b>.<br/>
+                    This action was for student <b><a href="discipline/view_incidents_student/{{ edited_action.student }}">{{ edited_action.student }}</a></b>.<br/>
+                    Minor problem behavior: <b>{{ edited_action.problem_behaviors_minor }}</b><br/>
+                    Major problem behavior: <b>{{ edited_action.problem_behaviors_major }}</b>.
+                </div>
+		<p><a href="/discipline/add_disciplinary_action/{{ edited_action.mi_incident_id }}/">Add another disciplinary action</a> to incident {{ action.mi_incident_id }}</p>
+		<p><a href="/discipline/">Return to the main PBIS BAIT discipline page</a></p>
+		<p><a href="/discipline/discipline_logout/">Log out of BAIT</a></p>
+	{% else %}
+		<form action="/discipline/" method="post">
+			Password:<br><input type="text" name="password" style="width:300px"><br>
+			<input type="submit" name="submit" value="Login" style="width:200px">		
+		</form>
+	{% endif %}
+{% endblock %}
+</div>
+</div>

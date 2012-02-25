@@ -1,0 +1,31 @@
+{% extends "base.html"  %}
+{% block title %} {{ head_title }} {% endblock %}
+<div class="wrapperdiv">
+{% block head %} {{ page_title }}{% endblock %}
+
+{% block content %}
+<div>
+    {% if incidents %}
+        <table>
+            <tr>
+                <td class="padded_default">Details</td>
+                <td class="padded_default">Date</td>
+                <td class="padded_default">Location</td>
+                <td class="padded_default">Description</td>
+            </tr>
+            {% for incident in incidents %}
+                <tr>
+                    <td class="padded_default"><a href="/discipline/incident_detail/{{ incident.id }}">View</a></td>
+                    <td class="padded_default"><a href="/discipline/view_incidents_date/{{ incident.event_date }}">{{ incident.event_date }}</a></td>
+                    <td class="padded_default">{{ incident.location }}</td>
+                    <td class="padded_default">{{ incident.description_of_incident|truncatewords:8 }}</td>
+                   
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+    <p>No incidents have been entered with referrer {{ referrer_string }}</p>
+    {% endif %}
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,2115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:annotation>
+    <xs:documentation>Version History: Last Updated 2010-08-18 (PersonalDemographics component now required)</xs:documentation>
+  </xs:annotation>
+  <xs:element name="StudentRecordMaintenanceGroup">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="StudentRecordMaintenance">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="1" maxOccurs="1" name="SubmittingEntity" type="SubmittingEntityType" />
+              <xs:element minOccurs="1" maxOccurs="1" name="PersonalCore" type="PersonalCoreType" />
+              <xs:element minOccurs="1" maxOccurs="1" name="StudentRecordMaintenance" type="StudentRecordMaintenanceType" />
+              <xs:element minOccurs="1" maxOccurs="1" name="EntityDemographics" type="EntityDemographicsType" />
+              <xs:element minOccurs="1" maxOccurs="1" name="PersonalDemographics" type="PersonalDemographicsType" />
+              <xs:element minOccurs="0" maxOccurs="1" name="GeneralEducationFTE" type="GeneralEducationFTEType" />
+              <xs:element minOccurs="0" maxOccurs="1" name="ProgramParticipation" type="ProgramParticipationType" />
+              <xs:element minOccurs="0" maxOccurs="1" name="PersonalCurriculum" type="PersonalCurriculumType" />
+              <xs:element minOccurs="0" maxOccurs="1" name="HomelessDemographics" type="HomelessDemographicsType" />
+              <xs:element minOccurs="0" maxOccurs="1" name="LEP" type="LEPType" />
+              <xs:element minOccurs="0" maxOccurs="1" name="AdvancedAccelerated" type="AdvancedAcceleratedType" />
+              <xs:element minOccurs="0" maxOccurs="1" name="Migrant" type="MigrantType" />
+              <xs:element minOccurs="0" maxOccurs="1" name="TitleITAS" type="TitleITASType" />
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="AdultEducation" type="AdultEducationType" />
+              <xs:element minOccurs="0" maxOccurs="1" name="InitialIEP" type="InitialIEPType" />
+              <xs:element minOccurs="0" maxOccurs="1" name="SpecialEducation" type="SpecialEducationType" />
+              <xs:element minOccurs="0" maxOccurs="1" name="ECSpecialEdAssessment" type="ECSpecialEdAssessmentType" />
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="DisciplinaryIncident" type="DisciplinaryIncidentType" />
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="DisciplinaryConsequence" type="DisciplinaryConsequenceType" />
+              <xs:element minOccurs="0" maxOccurs="1" name="Attendance" type="AttendanceType" />
+              <xs:element minOccurs="0" maxOccurs="1" name="SNE" type="SNEType" />
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="MigrantCurriculumCourses" type="MigrantCurriculumCoursesType" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute fixed="2010-2011" name="SchemaVersionMajor" type="xs:string" use="required" />
+      <xs:attribute fixed="1" name="SchemaVersionMinor" type="xs:string" use="required" />
+      <xs:attribute fixed="104" name="CollectionId" type="xs:int" use="required" />
+      <xs:attribute fixed="StudentRecordMaintenance" name="CollectionName" type="xs:string" />
+      <xs:attribute name="SubmittingSystemVendor" type="xs:string" use="required" />
+      <xs:attribute name="SubmittingSystemName" type="xs:string" use="required" />
+      <xs:attribute name="SubmittingSystemVersion" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="SubmittingEntityType">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="SubmittingEntityTypeCode" type="SubmittingEntityTypeCodeType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="SubmittingEntityCode" type="SubmittingEntityCodeType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="SubmittingEntityTypeCodeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="A" />
+      <xs:enumeration value="B" />
+      <xs:enumeration value="D" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="SubmittingEntityCodeType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="5" />
+      <xs:maxLength value="10" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="PersonalCoreType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="UIC" type="UICType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="LastName" type="LastNameType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="FirstName" type="FirstNameType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="MiddleName" type="MiddleNameType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="StudentSuffix" type="StudentSuffixType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="DateOfBirth" type="DateOfBirthType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="MultipleBirthOrder" type="MultipleBirthOrderType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Gender" type="GenderType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="UICType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]{10,10}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="LastNameType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Za-z'\-.,\s]{1,50}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="FirstNameType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Za-z'\-.,\s]{1,50}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="MiddleNameType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Za-z'\-.,\s]{1,50}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StudentSuffixType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="10" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="DateOfBirthType">
+    <xs:restriction base="xs:date">
+      <xs:minInclusive value="1753-01-01" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="MultipleBirthOrderType">
+    <xs:restriction base="xs:int">
+      <xs:maxInclusive value="9" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="GenderType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="M" />
+      <xs:enumeration value="F" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="StudentRecordMaintenanceType">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="AsOfDate" type="AsOfDateType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="AsOfDateType">
+    <xs:restriction base="xs:date">
+      <xs:minInclusive value="1753-01-01" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="EntityDemographicsType">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="OperatingISDESANumber" type="OperatingISDESANumberType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="OperatingDistrictNumber" type="OperatingDistrictNumberType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="SchoolFacilityNumber" type="SchoolFacilityNumberType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="StudentIdNumber" type="StudentIdNumberType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="GradeOrSetting" type="GradeOrSettingType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="EnrollmentDate" type="EnrollmentDateType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="EnrollmentType" type="EnrollmentTypeType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ExitStatus" type="ExitStatusType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ExitDate" type="ExitDateType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ExitType" type="ExitTypeType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DateOfCount" type="DateOfCountType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="StudentResidency" type="StudentResidencyType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Ten30DayRule" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="OperatingISDESANumberType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]{2,2}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="OperatingDistrictNumberType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]{5,5}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="SchoolFacilityNumberType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]{5,5}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StudentIdNumberType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="20" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="GradeOrSettingType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="00" />
+      <xs:enumeration value="01" />
+      <xs:enumeration value="02" />
+      <xs:enumeration value="03" />
+      <xs:enumeration value="04" />
+      <xs:enumeration value="05" />
+      <xs:enumeration value="06" />
+      <xs:enumeration value="07" />
+      <xs:enumeration value="08" />
+      <xs:enumeration value="09" />
+      <xs:enumeration value="10" />
+      <xs:enumeration value="11" />
+      <xs:enumeration value="12" />
+      <xs:enumeration value="14" />
+      <xs:enumeration value="20" />
+      <xs:enumeration value="30" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EnrollmentDateType">
+    <xs:restriction base="xs:date">
+      <xs:minInclusive value="1753-01-01" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EnrollmentTypeType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Za-z'\-.,\s0-9]{1,1}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ExitStatusType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="00" />
+      <xs:enumeration value="01" />
+      <xs:enumeration value="02" />
+      <xs:enumeration value="03" />
+      <xs:enumeration value="04" />
+      <xs:enumeration value="05" />
+      <xs:enumeration value="06" />
+      <xs:enumeration value="07" />
+      <xs:enumeration value="08" />
+      <xs:enumeration value="09" />
+      <xs:enumeration value="10" />
+      <xs:enumeration value="11" />
+      <xs:enumeration value="12" />
+      <xs:enumeration value="13" />
+      <xs:enumeration value="14" />
+      <xs:enumeration value="15" />
+      <xs:enumeration value="16" />
+      <xs:enumeration value="17" />
+      <xs:enumeration value="18" />
+      <xs:enumeration value="19" />
+      <xs:enumeration value="20" />
+      <xs:enumeration value="21" />
+      <xs:enumeration value="30" />
+      <xs:enumeration value="40" />
+      <xs:enumeration value="41" />
+      <xs:enumeration value="42" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ExitDateType">
+    <xs:restriction base="xs:date">
+      <xs:minInclusive value="1753-01-01" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ExitTypeType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Za-z'\-.,\s0-9]{1,1}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="DateOfCountType">
+    <xs:restriction base="xs:date">
+      <xs:minInclusive value="1753-01-01" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StudentResidencyType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="01" />
+      <xs:enumeration value="02" />
+      <xs:enumeration value="03" />
+      <xs:enumeration value="04" />
+      <xs:enumeration value="05" />
+      <xs:enumeration value="06" />
+      <xs:enumeration value="07" />
+      <xs:enumeration value="08" />
+      <xs:enumeration value="09" />
+      <xs:enumeration value="10" />
+      <xs:enumeration value="11" />
+      <xs:enumeration value="12" />
+      <xs:enumeration value="13" />
+      <xs:enumeration value="14" />
+      <xs:enumeration value="15" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="PersonalDemographicsType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="ResidentLEANumber" type="ResidentLEANumberType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="StudentResidentCounty" type="StudentResidentCountyType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="CountryOfBirth" type="CountryOfBirthType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="YearOfEntry" type="YearOfEntryType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="StreetAddress" type="StreetAddressType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="StreetAddress2" type="StreetAddress2Type" />
+      <xs:element minOccurs="0" maxOccurs="1" name="PersonalDemographicsCity" type="PersonalDemographicsCityType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="State" type="StateType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ZipCode" type="ZipCodeType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Ethnicity" type="EthnicityType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Phone" type="PhoneType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="ResidentLEANumberType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]{5,5}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StudentResidentCountyType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="01" />
+      <xs:enumeration value="02" />
+      <xs:enumeration value="03" />
+      <xs:enumeration value="04" />
+      <xs:enumeration value="05" />
+      <xs:enumeration value="06" />
+      <xs:enumeration value="07" />
+      <xs:enumeration value="08" />
+      <xs:enumeration value="09" />
+      <xs:enumeration value="10" />
+      <xs:enumeration value="11" />
+      <xs:enumeration value="12" />
+      <xs:enumeration value="13" />
+      <xs:enumeration value="14" />
+      <xs:enumeration value="15" />
+      <xs:enumeration value="16" />
+      <xs:enumeration value="17" />
+      <xs:enumeration value="18" />
+      <xs:enumeration value="19" />
+      <xs:enumeration value="20" />
+      <xs:enumeration value="21" />
+      <xs:enumeration value="22" />
+      <xs:enumeration value="23" />
+      <xs:enumeration value="24" />
+      <xs:enumeration value="25" />
+      <xs:enumeration value="26" />
+      <xs:enumeration value="27" />
+      <xs:enumeration value="28" />
+      <xs:enumeration value="29" />
+      <xs:enumeration value="30" />
+      <xs:enumeration value="31" />
+      <xs:enumeration value="32" />
+      <xs:enumeration value="33" />
+      <xs:enumeration value="34" />
+      <xs:enumeration value="35" />
+      <xs:enumeration value="36" />
+      <xs:enumeration value="37" />
+      <xs:enumeration value="38" />
+      <xs:enumeration value="39" />
+      <xs:enumeration value="40" />
+      <xs:enumeration value="41" />
+      <xs:enumeration value="42" />
+      <xs:enumeration value="43" />
+      <xs:enumeration value="44" />
+      <xs:enumeration value="45" />
+      <xs:enumeration value="46" />
+      <xs:enumeration value="47" />
+      <xs:enumeration value="48" />
+      <xs:enumeration value="49" />
+      <xs:enumeration value="50" />
+      <xs:enumeration value="51" />
+      <xs:enumeration value="52" />
+      <xs:enumeration value="53" />
+      <xs:enumeration value="54" />
+      <xs:enumeration value="55" />
+      <xs:enumeration value="56" />
+      <xs:enumeration value="57" />
+      <xs:enumeration value="58" />
+      <xs:enumeration value="59" />
+      <xs:enumeration value="60" />
+      <xs:enumeration value="61" />
+      <xs:enumeration value="62" />
+      <xs:enumeration value="63" />
+      <xs:enumeration value="64" />
+      <xs:enumeration value="65" />
+      <xs:enumeration value="66" />
+      <xs:enumeration value="67" />
+      <xs:enumeration value="68" />
+      <xs:enumeration value="69" />
+      <xs:enumeration value="70" />
+      <xs:enumeration value="71" />
+      <xs:enumeration value="72" />
+      <xs:enumeration value="73" />
+      <xs:enumeration value="74" />
+      <xs:enumeration value="75" />
+      <xs:enumeration value="76" />
+      <xs:enumeration value="77" />
+      <xs:enumeration value="78" />
+      <xs:enumeration value="79" />
+      <xs:enumeration value="80" />
+      <xs:enumeration value="81" />
+      <xs:enumeration value="82" />
+      <xs:enumeration value="83" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="CountryOfBirthType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AD" />
+      <xs:enumeration value="AE" />
+      <xs:enumeration value="AF" />
+      <xs:enumeration value="AG" />
+      <xs:enumeration value="AI" />
+      <xs:enumeration value="AL" />
+      <xs:enumeration value="AM" />
+      <xs:enumeration value="AN" />
+      <xs:enumeration value="AO" />
+      <xs:enumeration value="AQ" />
+      <xs:enumeration value="AR" />
+      <xs:enumeration value="AS" />
+      <xs:enumeration value="AT" />
+      <xs:enumeration value="AU" />
+      <xs:enumeration value="AW" />
+      <xs:enumeration value="AX" />
+      <xs:enumeration value="AZ" />
+      <xs:enumeration value="BA" />
+      <xs:enumeration value="BB" />
+      <xs:enumeration value="BD" />
+      <xs:enumeration value="BE" />
+      <xs:enumeration value="BF" />
+      <xs:enumeration value="BG" />
+      <xs:enumeration value="BH" />
+      <xs:enumeration value="BI" />
+      <xs:enumeration value="BJ" />
+      <xs:enumeration value="BM" />
+      <xs:enumeration value="BN" />
+      <xs:enumeration value="BO" />
+      <xs:enumeration value="BR" />
+      <xs:enumeration value="BS" />
+      <xs:enumeration value="BT" />
+      <xs:enumeration value="BV" />
+      <xs:enumeration value="BW" />
+      <xs:enumeration value="BY" />
+      <xs:enumeration value="BZ" />
+      <xs:enumeration value="CA" />
+      <xs:enumeration value="CC" />
+      <xs:enumeration value="CD" />
+      <xs:enumeration value="CD" />
+      <xs:enumeration value="CF" />
+      <xs:enumeration value="CG" />
+      <xs:enumeration value="CH" />
+      <xs:enumeration value="CI" />
+      <xs:enumeration value="CK" />
+      <xs:enumeration value="CL" />
+      <xs:enumeration value="CM" />
+      <xs:enumeration value="CN" />
+      <xs:enumeration value="CO" />
+      <xs:enumeration value="CR" />
+      <xs:enumeration value="CS" />
+      <xs:enumeration value="CU" />
+      <xs:enumeration value="CV" />
+      <xs:enumeration value="CX" />
+      <xs:enumeration value="CY" />
+      <xs:enumeration value="CZ" />
+      <xs:enumeration value="DE" />
+      <xs:enumeration value="DJ" />
+      <xs:enumeration value="DK" />
+      <xs:enumeration value="DM" />
+      <xs:enumeration value="DO" />
+      <xs:enumeration value="DZ" />
+      <xs:enumeration value="EC" />
+      <xs:enumeration value="EE" />
+      <xs:enumeration value="EG" />
+      <xs:enumeration value="EH" />
+      <xs:enumeration value="ER" />
+      <xs:enumeration value="ES" />
+      <xs:enumeration value="ET" />
+      <xs:enumeration value="FI" />
+      <xs:enumeration value="FJ" />
+      <xs:enumeration value="FK" />
+      <xs:enumeration value="FM" />
+      <xs:enumeration value="FO" />
+      <xs:enumeration value="FR" />
+      <xs:enumeration value="GA" />
+      <xs:enumeration value="GB" />
+      <xs:enumeration value="GD" />
+      <xs:enumeration value="GE" />
+      <xs:enumeration value="GF" />
+      <xs:enumeration value="GG" />
+      <xs:enumeration value="GH" />
+      <xs:enumeration value="GI" />
+      <xs:enumeration value="GL" />
+      <xs:enumeration value="GM" />
+      <xs:enumeration value="GN" />
+      <xs:enumeration value="GP" />
+      <xs:enumeration value="GQ" />
+      <xs:enumeration value="GR" />
+      <xs:enumeration value="GS" />
+      <xs:enumeration value="GT" />
+      <xs:enumeration value="GU" />
+      <xs:enumeration value="GW" />
+      <xs:enumeration value="GY" />
+      <xs:enumeration value="HK" />
+      <xs:enumeration value="HM" />
+      <xs:enumeration value="HN" />
+      <xs:enumeration value="HR" />
+      <xs:enumeration value="HT" />
+      <xs:enumeration value="HU" />
+      <xs:enumeration value="ID" />
+      <xs:enumeration value="IE" />
+      <xs:enumeration value="IL" />
+      <xs:enumeration value="IM" />
+      <xs:enumeration value="IN" />
+      <xs:enumeration value="IO" />
+      <xs:enumeration value="IQ" />
+      <xs:enumeration value="IR" />
+      <xs:enumeration value="IS" />
+      <xs:enumeration value="IT" />
+      <xs:enumeration value="JE" />
+      <xs:enumeration value="JM" />
+      <xs:enumeration value="JO" />
+      <xs:enumeration value="JP" />
+      <xs:enumeration value="KE" />
+      <xs:enumeration value="KG" />
+      <xs:enumeration value="KH" />
+      <xs:enumeration value="KI" />
+      <xs:enumeration value="KM" />
+      <xs:enumeration value="KN" />
+      <xs:enumeration value="KP" />
+      <xs:enumeration value="KR" />
+      <xs:enumeration value="KW" />
+      <xs:enumeration value="KY" />
+      <xs:enumeration value="KZ" />
+      <xs:enumeration value="LA" />
+      <xs:enumeration value="LB" />
+      <xs:enumeration value="LC" />
+      <xs:enumeration value="LI" />
+      <xs:enumeration value="LK" />
+      <xs:enumeration value="LR" />
+      <xs:enumeration value="LS" />
+      <xs:enumeration value="LT" />
+      <xs:enumeration value="LU" />
+      <xs:enumeration value="LV" />
+      <xs:enumeration value="LY" />
+      <xs:enumeration value="MA" />
+      <xs:enumeration value="MC" />
+      <xs:enumeration value="MD" />
+      <xs:enumeration value="MG" />
+      <xs:enumeration value="MH" />
+      <xs:enumeration value="MK" />
+      <xs:enumeration value="ML" />
+      <xs:enumeration value="MM" />
+      <xs:enumeration value="MN" />
+      <xs:enumeration value="MO" />
+      <xs:enumeration value="MP" />
+      <xs:enumeration value="MQ" />
+      <xs:enumeration value="MR" />
+      <xs:enumeration value="MS" />
+      <xs:enumeration value="MT" />
+      <xs:enumeration value="MU" />
+      <xs:enumeration value="MV" />
+      <xs:enumeration value="MW" />
+      <xs:enumeration value="MX" />
+      <xs:enumeration value="MY" />
+      <xs:enumeration value="MZ" />
+      <xs:enumeration value="NA" />
+      <xs:enumeration value="NC" />
+      <xs:enumeration value="NE" />
+      <xs:enumeration value="NF" />
+      <xs:enumeration value="NG" />
+      <xs:enumeration value="NI" />
+      <xs:enumeration value="NL" />
+      <xs:enumeration value="NO" />
+      <xs:enumeration value="NP" />
+      <xs:enumeration value="NR" />
+      <xs:enumeration value="NU" />
+      <xs:enumeration value="NZ" />
+      <xs:enumeration value="OM" />
+      <xs:enumeration value="PA" />
+      <xs:enumeration value="PE" />
+      <xs:enumeration value="PF" />
+      <xs:enumeration value="PG" />
+      <xs:enumeration value="PH" />
+      <xs:enumeration value="PK" />
+      <xs:enumeration value="PL" />
+      <xs:enumeration value="PM" />
+      <xs:enumeration value="PN" />
+      <xs:enumeration value="PR" />
+      <xs:enumeration value="PS" />
+      <xs:enumeration value="PT" />
+      <xs:enumeration value="PW" />
+      <xs:enumeration value="PY" />
+      <xs:enumeration value="QA" />
+      <xs:enumeration value="RE" />
+      <xs:enumeration value="RO" />
+      <xs:enumeration value="RU" />
+      <xs:enumeration value="RW" />
+      <xs:enumeration value="SA" />
+      <xs:enumeration value="SB" />
+      <xs:enumeration value="SC" />
+      <xs:enumeration value="SD" />
+      <xs:enumeration value="SE" />
+      <xs:enumeration value="SG" />
+      <xs:enumeration value="SH" />
+      <xs:enumeration value="SI" />
+      <xs:enumeration value="SJ" />
+      <xs:enumeration value="SK" />
+      <xs:enumeration value="SL" />
+      <xs:enumeration value="SM" />
+      <xs:enumeration value="SN" />
+      <xs:enumeration value="SO" />
+      <xs:enumeration value="SR" />
+      <xs:enumeration value="ST" />
+      <xs:enumeration value="SV" />
+      <xs:enumeration value="SY" />
+      <xs:enumeration value="SZ" />
+      <xs:enumeration value="TC" />
+      <xs:enumeration value="TD" />
+      <xs:enumeration value="TF" />
+      <xs:enumeration value="TG" />
+      <xs:enumeration value="TH" />
+      <xs:enumeration value="TJ" />
+      <xs:enumeration value="TK" />
+      <xs:enumeration value="TL" />
+      <xs:enumeration value="TM" />
+      <xs:enumeration value="TN" />
+      <xs:enumeration value="TO" />
+      <xs:enumeration value="TR" />
+      <xs:enumeration value="TT" />
+      <xs:enumeration value="TV" />
+      <xs:enumeration value="TW" />
+      <xs:enumeration value="TZ" />
+      <xs:enumeration value="UA" />
+      <xs:enumeration value="UG" />
+      <xs:enumeration value="UM" />
+      <xs:enumeration value="US" />
+      <xs:enumeration value="UY" />
+      <xs:enumeration value="UZ" />
+      <xs:enumeration value="VA" />
+      <xs:enumeration value="VA" />
+      <xs:enumeration value="VC" />
+      <xs:enumeration value="VE" />
+      <xs:enumeration value="VG" />
+      <xs:enumeration value="VI" />
+      <xs:enumeration value="VN" />
+      <xs:enumeration value="VU" />
+      <xs:enumeration value="WF" />
+      <xs:enumeration value="WS" />
+      <xs:enumeration value="YE" />
+      <xs:enumeration value="YT" />
+      <xs:enumeration value="ZA" />
+      <xs:enumeration value="ZM" />
+      <xs:enumeration value="ZW" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="YearOfEntryType">
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="1900" />
+      <xs:maxInclusive value="2100" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StreetAddressType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="100" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StreetAddress2Type">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="0" />
+      <xs:maxLength value="100" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PersonalDemographicsCityType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Za-z'\-.,\s0-9]{1,20}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StateType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AA" />
+      <xs:enumeration value="AE" />
+      <xs:enumeration value="AK" />
+      <xs:enumeration value="AL" />
+      <xs:enumeration value="AP" />
+      <xs:enumeration value="AR" />
+      <xs:enumeration value="AS" />
+      <xs:enumeration value="AZ" />
+      <xs:enumeration value="CA" />
+      <xs:enumeration value="CO" />
+      <xs:enumeration value="CT" />
+      <xs:enumeration value="DC" />
+      <xs:enumeration value="DE" />
+      <xs:enumeration value="FL" />
+      <xs:enumeration value="FM" />
+      <xs:enumeration value="GA" />
+      <xs:enumeration value="GU" />
+      <xs:enumeration value="HI" />
+      <xs:enumeration value="IA" />
+      <xs:enumeration value="ID" />
+      <xs:enumeration value="IL" />
+      <xs:enumeration value="IN" />
+      <xs:enumeration value="KS" />
+      <xs:enumeration value="KY" />
+      <xs:enumeration value="LA" />
+      <xs:enumeration value="MA" />
+      <xs:enumeration value="MD" />
+      <xs:enumeration value="ME" />
+      <xs:enumeration value="MH" />
+      <xs:enumeration value="MI" />
+      <xs:enumeration value="MN" />
+      <xs:enumeration value="MO" />
+      <xs:enumeration value="MP" />
+      <xs:enumeration value="MS" />
+      <xs:enumeration value="MT" />
+      <xs:enumeration value="NC" />
+      <xs:enumeration value="ND" />
+      <xs:enumeration value="NE" />
+      <xs:enumeration value="NH" />
+      <xs:enumeration value="NJ" />
+      <xs:enumeration value="NM" />
+      <xs:enumeration value="NV" />
+      <xs:enumeration value="NY" />
+      <xs:enumeration value="OH" />
+      <xs:enumeration value="OK" />
+      <xs:enumeration value="OR" />
+      <xs:enumeration value="PA" />
+      <xs:enumeration value="PR" />
+      <xs:enumeration value="PW" />
+      <xs:enumeration value="RI" />
+      <xs:enumeration value="SC" />
+      <xs:enumeration value="SD" />
+      <xs:enumeration value="TN" />
+      <xs:enumeration value="TX" />
+      <xs:enumeration value="UT" />
+      <xs:enumeration value="VA" />
+      <xs:enumeration value="VI" />
+      <xs:enumeration value="VT" />
+      <xs:enumeration value="WA" />
+      <xs:enumeration value="WI" />
+      <xs:enumeration value="WV" />
+      <xs:enumeration value="WY" />
+      <xs:enumeration value="AB" />
+      <xs:enumeration value="BC" />
+      <xs:enumeration value="MB" />
+      <xs:enumeration value="NB" />
+      <xs:enumeration value="NL" />
+      <xs:enumeration value="NS" />
+      <xs:enumeration value="NT" />
+      <xs:enumeration value="NU" />
+      <xs:enumeration value="ON" />
+      <xs:enumeration value="PE" />
+      <xs:enumeration value="QC" />
+      <xs:enumeration value="SK" />
+      <xs:enumeration value="YT" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ZipCodeType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Za-z'\-.,\s0-9]{5,10}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EthnicityType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-6]{6,6}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PhoneType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Za-z'\-.,\s0-9]{1,10}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="GeneralEducationFTEType">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="GeneralEdFTE" type="GeneralEdFTEType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="GeneralEdFTEType">
+    <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="0.00" />
+      <xs:maxInclusive value="1.00" />
+      <xs:fractionDigits value="2" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ProgramParticipationType">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="ProgramEligibilityParticipation" type="ProgramEligibilityParticipationType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="ProgramEligibilityParticipationType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="7760" />
+      <xs:enumeration value="9220" />
+      <xs:enumeration value="9230" />
+      <xs:enumeration value="3500" />
+      <xs:enumeration value="9130" />
+      <xs:enumeration value="9120" />
+      <xs:enumeration value="9110" />
+      <xs:enumeration value="9229" />
+      <xs:enumeration value="9210" />
+      <xs:enumeration value="6010" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="PersonalCurriculumType">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="PersonalCurriculumCreditModification" type="PersonalCurriculumCreditModificationType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="PersonalCurriculumType" type="PersonalCurriculumTypeType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="PersonalCurriculumCreditModificationType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="1" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="3" />
+      <xs:enumeration value="4" />
+      <xs:enumeration value="5" />
+      <xs:enumeration value="6" />
+      <xs:enumeration value="8" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PersonalCurriculumTypeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="1" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="3" />
+      <xs:enumeration value="4" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="HomelessDemographicsType">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Homeless" type="HomelessType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="UnaccompaniedYouth" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="HomelessType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="10" />
+      <xs:enumeration value="11" />
+      <xs:enumeration value="12" />
+      <xs:enumeration value="13" />
+      <xs:enumeration value="14" />
+      <xs:enumeration value="15" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="LEPType">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="FundingParticipation" type="FundingParticipationType" />
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="LEPInstructionalProgram" type="LEPInstructionalProgramType" />
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="PrimaryLanguage" type="PrimaryLanguageType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="LEPExitReason" type="LEPExitReasonType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="LEPExitDate" type="LEPExitDateType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="LEPReEntryDate" type="LEPReEntryDateType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="FundingParticipationType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="6841" />
+      <xs:enumeration value="6842" />
+      <xs:enumeration value="6843" />
+      <xs:enumeration value="6844" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="LEPInstructionalProgramType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="05" />
+      <xs:enumeration value="06" />
+      <xs:enumeration value="07" />
+      <xs:enumeration value="08" />
+      <xs:enumeration value="09" />
+      <xs:enumeration value="10" />
+      <xs:enumeration value="11" />
+      <xs:enumeration value="12" />
+      <xs:enumeration value="13" />
+      <xs:enumeration value="14" />
+      <xs:enumeration value="15" />
+      <xs:enumeration value="16" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PrimaryLanguageType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="aar" />
+      <xs:enumeration value="abk" />
+      <xs:enumeration value="ace" />
+      <xs:enumeration value="ach" />
+      <xs:enumeration value="ada" />
+      <xs:enumeration value="ady" />
+      <xs:enumeration value="afa" />
+      <xs:enumeration value="afh" />
+      <xs:enumeration value="afr" />
+      <xs:enumeration value="ajm" />
+      <xs:enumeration value="aka" />
+      <xs:enumeration value="akk" />
+      <xs:enumeration value="alb" />
+      <xs:enumeration value="ale" />
+      <xs:enumeration value="alg" />
+      <xs:enumeration value="amh" />
+      <xs:enumeration value="ang" />
+      <xs:enumeration value="apa" />
+      <xs:enumeration value="ara" />
+      <xs:enumeration value="arc" />
+      <xs:enumeration value="arg" />
+      <xs:enumeration value="arm" />
+      <xs:enumeration value="arn" />
+      <xs:enumeration value="arp" />
+      <xs:enumeration value="art" />
+      <xs:enumeration value="arw" />
+      <xs:enumeration value="asm" />
+      <xs:enumeration value="ast" />
+      <xs:enumeration value="ath" />
+      <xs:enumeration value="aus" />
+      <xs:enumeration value="ava" />
+      <xs:enumeration value="ave" />
+      <xs:enumeration value="awa" />
+      <xs:enumeration value="aym" />
+      <xs:enumeration value="aze" />
+      <xs:enumeration value="bad" />
+      <xs:enumeration value="bai" />
+      <xs:enumeration value="bak" />
+      <xs:enumeration value="bal" />
+      <xs:enumeration value="bam" />
+      <xs:enumeration value="ban" />
+      <xs:enumeration value="baq" />
+      <xs:enumeration value="bas" />
+      <xs:enumeration value="bat" />
+      <xs:enumeration value="bej" />
+      <xs:enumeration value="bel" />
+      <xs:enumeration value="bem" />
+      <xs:enumeration value="ben" />
+      <xs:enumeration value="ber" />
+      <xs:enumeration value="bho" />
+      <xs:enumeration value="bih" />
+      <xs:enumeration value="bik" />
+      <xs:enumeration value="bin" />
+      <xs:enumeration value="bis" />
+      <xs:enumeration value="bla" />
+      <xs:enumeration value="bnt" />
+      <xs:enumeration value="bos" />
+      <xs:enumeration value="bra" />
+      <xs:enumeration value="bre" />
+      <xs:enumeration value="btk" />
+      <xs:enumeration value="bua" />
+      <xs:enumeration value="bug" />
+      <xs:enumeration value="bul" />
+      <xs:enumeration value="bur" />
+      <xs:enumeration value="cad" />
+      <xs:enumeration value="cai" />
+      <xs:enumeration value="cam" />
+      <xs:enumeration value="car" />
+      <xs:enumeration value="cat" />
+      <xs:enumeration value="cau" />
+      <xs:enumeration value="ceb" />
+      <xs:enumeration value="cel" />
+      <xs:enumeration value="cha" />
+      <xs:enumeration value="chb" />
+      <xs:enumeration value="che" />
+      <xs:enumeration value="chg" />
+      <xs:enumeration value="chi" />
+      <xs:enumeration value="chk" />
+      <xs:enumeration value="chm" />
+      <xs:enumeration value="chn" />
+      <xs:enumeration value="cho" />
+      <xs:enumeration value="chp" />
+      <xs:enumeration value="chr" />
+      <xs:enumeration value="chu" />
+      <xs:enumeration value="chv" />
+      <xs:enumeration value="chy" />
+      <xs:enumeration value="cmc" />
+      <xs:enumeration value="cop" />
+      <xs:enumeration value="cor" />
+      <xs:enumeration value="cos" />
+      <xs:enumeration value="cpe" />
+      <xs:enumeration value="cpf" />
+      <xs:enumeration value="cpp" />
+      <xs:enumeration value="cre" />
+      <xs:enumeration value="crh" />
+      <xs:enumeration value="crp" />
+      <xs:enumeration value="cus" />
+      <xs:enumeration value="cze" />
+      <xs:enumeration value="dak" />
+      <xs:enumeration value="dan" />
+      <xs:enumeration value="dar" />
+      <xs:enumeration value="day" />
+      <xs:enumeration value="del" />
+      <xs:enumeration value="den" />
+      <xs:enumeration value="dgr" />
+      <xs:enumeration value="din" />
+      <xs:enumeration value="div" />
+      <xs:enumeration value="doi" />
+      <xs:enumeration value="dra" />
+      <xs:enumeration value="dua" />
+      <xs:enumeration value="dum" />
+      <xs:enumeration value="dut" />
+      <xs:enumeration value="dyu" />
+      <xs:enumeration value="dzo" />
+      <xs:enumeration value="efi" />
+      <xs:enumeration value="egy" />
+      <xs:enumeration value="eka" />
+      <xs:enumeration value="elx" />
+      <xs:enumeration value="eng" />
+      <xs:enumeration value="enm" />
+      <xs:enumeration value="epo" />
+      <xs:enumeration value="esk" />
+      <xs:enumeration value="esp" />
+      <xs:enumeration value="est" />
+      <xs:enumeration value="eth" />
+      <xs:enumeration value="ewe" />
+      <xs:enumeration value="ewo" />
+      <xs:enumeration value="fan" />
+      <xs:enumeration value="fao" />
+      <xs:enumeration value="far" />
+      <xs:enumeration value="fat" />
+      <xs:enumeration value="fij" />
+      <xs:enumeration value="fin" />
+      <xs:enumeration value="fiu" />
+      <xs:enumeration value="fon" />
+      <xs:enumeration value="fre" />
+      <xs:enumeration value="fri" />
+      <xs:enumeration value="frm" />
+      <xs:enumeration value="fro" />
+      <xs:enumeration value="fry" />
+      <xs:enumeration value="ful" />
+      <xs:enumeration value="fur" />
+      <xs:enumeration value="gaa" />
+      <xs:enumeration value="gae" />
+      <xs:enumeration value="gag" />
+      <xs:enumeration value="gal" />
+      <xs:enumeration value="gay" />
+      <xs:enumeration value="gba" />
+      <xs:enumeration value="gem" />
+      <xs:enumeration value="geo" />
+      <xs:enumeration value="ger" />
+      <xs:enumeration value="gez" />
+      <xs:enumeration value="gil" />
+      <xs:enumeration value="gla" />
+      <xs:enumeration value="gle" />
+      <xs:enumeration value="glg" />
+      <xs:enumeration value="glv" />
+      <xs:enumeration value="gmh" />
+      <xs:enumeration value="goh" />
+      <xs:enumeration value="gon" />
+      <xs:enumeration value="gor" />
+      <xs:enumeration value="got" />
+      <xs:enumeration value="grb" />
+      <xs:enumeration value="grc" />
+      <xs:enumeration value="gre" />
+      <xs:enumeration value="grn" />
+      <xs:enumeration value="gua" />
+      <xs:enumeration value="guj" />
+      <xs:enumeration value="gwi" />
+      <xs:enumeration value="hai" />
+      <xs:enumeration value="hat" />
+      <xs:enumeration value="hau" />
+      <xs:enumeration value="haw" />
+      <xs:enumeration value="heb" />
+      <xs:enumeration value="her" />
+      <xs:enumeration value="hil" />
+      <xs:enumeration value="him" />
+      <xs:enumeration value="hin" />
+      <xs:enumeration value="hit" />
+      <xs:enumeration value="hmn" />
+      <xs:enumeration value="hmo" />
+      <xs:enumeration value="hun" />
+      <xs:enumeration value="hup" />
+      <xs:enumeration value="iba" />
+      <xs:enumeration value="ibo" />
+      <xs:enumeration value="ice" />
+      <xs:enumeration value="ido" />
+      <xs:enumeration value="iii" />
+      <xs:enumeration value="ijo" />
+      <xs:enumeration value="iku" />
+      <xs:enumeration value="ile" />
+      <xs:enumeration value="ilo" />
+      <xs:enumeration value="ina" />
+      <xs:enumeration value="inc" />
+      <xs:enumeration value="ind" />
+      <xs:enumeration value="ine" />
+      <xs:enumeration value="inh" />
+      <xs:enumeration value="int" />
+      <xs:enumeration value="ipk" />
+      <xs:enumeration value="ira" />
+      <xs:enumeration value="iri" />
+      <xs:enumeration value="iro" />
+      <xs:enumeration value="ita" />
+      <xs:enumeration value="jav" />
+      <xs:enumeration value="jpn" />
+      <xs:enumeration value="jpr" />
+      <xs:enumeration value="jrb" />
+      <xs:enumeration value="kaa" />
+      <xs:enumeration value="kab" />
+      <xs:enumeration value="kac" />
+      <xs:enumeration value="kal" />
+      <xs:enumeration value="kam" />
+      <xs:enumeration value="kan" />
+      <xs:enumeration value="kar" />
+      <xs:enumeration value="kas" />
+      <xs:enumeration value="kau" />
+      <xs:enumeration value="kaw" />
+      <xs:enumeration value="kaz" />
+      <xs:enumeration value="kbd" />
+      <xs:enumeration value="kha" />
+      <xs:enumeration value="khi" />
+      <xs:enumeration value="khm" />
+      <xs:enumeration value="kho" />
+      <xs:enumeration value="kik" />
+      <xs:enumeration value="kin" />
+      <xs:enumeration value="kir" />
+      <xs:enumeration value="kmb" />
+      <xs:enumeration value="kok" />
+      <xs:enumeration value="kom" />
+      <xs:enumeration value="kon" />
+      <xs:enumeration value="kor" />
+      <xs:enumeration value="kos" />
+      <xs:enumeration value="kpe" />
+      <xs:enumeration value="kro" />
+      <xs:enumeration value="kru" />
+      <xs:enumeration value="kua" />
+      <xs:enumeration value="kum" />
+      <xs:enumeration value="kur" />
+      <xs:enumeration value="kus" />
+      <xs:enumeration value="kut" />
+      <xs:enumeration value="lad" />
+      <xs:enumeration value="lah" />
+      <xs:enumeration value="lam" />
+      <xs:enumeration value="lan" />
+      <xs:enumeration value="lao" />
+      <xs:enumeration value="lap" />
+      <xs:enumeration value="lat" />
+      <xs:enumeration value="lav" />
+      <xs:enumeration value="lez" />
+      <xs:enumeration value="lim" />
+      <xs:enumeration value="lin" />
+      <xs:enumeration value="lit" />
+      <xs:enumeration value="lol" />
+      <xs:enumeration value="loz" />
+      <xs:enumeration value="ltz" />
+      <xs:enumeration value="lua" />
+      <xs:enumeration value="lub" />
+      <xs:enumeration value="lug" />
+      <xs:enumeration value="lui" />
+      <xs:enumeration value="lun" />
+      <xs:enumeration value="luo" />
+      <xs:enumeration value="lus" />
+      <xs:enumeration value="mac" />
+      <xs:enumeration value="mad" />
+      <xs:enumeration value="mag" />
+      <xs:enumeration value="mah" />
+      <xs:enumeration value="mai" />
+      <xs:enumeration value="mak" />
+      <xs:enumeration value="mal" />
+      <xs:enumeration value="man" />
+      <xs:enumeration value="mao" />
+      <xs:enumeration value="map" />
+      <xs:enumeration value="mar" />
+      <xs:enumeration value="mas" />
+      <xs:enumeration value="max" />
+      <xs:enumeration value="may" />
+      <xs:enumeration value="mdr" />
+      <xs:enumeration value="men" />
+      <xs:enumeration value="mga" />
+      <xs:enumeration value="mic" />
+      <xs:enumeration value="min" />
+      <xs:enumeration value="mis" />
+      <xs:enumeration value="mkh" />
+      <xs:enumeration value="mla" />
+      <xs:enumeration value="mlg" />
+      <xs:enumeration value="mlt" />
+      <xs:enumeration value="mnc" />
+      <xs:enumeration value="mni" />
+      <xs:enumeration value="mno" />
+      <xs:enumeration value="moh" />
+      <xs:enumeration value="mol" />
+      <xs:enumeration value="mon" />
+      <xs:enumeration value="mos" />
+      <xs:enumeration value="mul" />
+      <xs:enumeration value="mun" />
+      <xs:enumeration value="mus" />
+      <xs:enumeration value="mwr" />
+      <xs:enumeration value="myn" />
+      <xs:enumeration value="nah" />
+      <xs:enumeration value="nai" />
+      <xs:enumeration value="nap" />
+      <xs:enumeration value="nau" />
+      <xs:enumeration value="nav" />
+      <xs:enumeration value="nbl" />
+      <xs:enumeration value="nde" />
+      <xs:enumeration value="ndo" />
+      <xs:enumeration value="nds" />
+      <xs:enumeration value="nep" />
+      <xs:enumeration value="new" />
+      <xs:enumeration value="nia" />
+      <xs:enumeration value="nic" />
+      <xs:enumeration value="niu" />
+      <xs:enumeration value="nno" />
+      <xs:enumeration value="nob" />
+      <xs:enumeration value="nog" />
+      <xs:enumeration value="non" />
+      <xs:enumeration value="nor" />
+      <xs:enumeration value="nso" />
+      <xs:enumeration value="nub" />
+      <xs:enumeration value="nya" />
+      <xs:enumeration value="nym" />
+      <xs:enumeration value="nyn" />
+      <xs:enumeration value="nyo" />
+      <xs:enumeration value="nzi" />
+      <xs:enumeration value="oci" />
+      <xs:enumeration value="oji" />
+      <xs:enumeration value="ori" />
+      <xs:enumeration value="orm" />
+      <xs:enumeration value="osa" />
+      <xs:enumeration value="oss" />
+      <xs:enumeration value="ota" />
+      <xs:enumeration value="oto" />
+      <xs:enumeration value="paa" />
+      <xs:enumeration value="pag" />
+      <xs:enumeration value="pal" />
+      <xs:enumeration value="pam" />
+      <xs:enumeration value="pan" />
+      <xs:enumeration value="pap" />
+      <xs:enumeration value="pau" />
+      <xs:enumeration value="peo" />
+      <xs:enumeration value="per" />
+      <xs:enumeration value="phi" />
+      <xs:enumeration value="phn" />
+      <xs:enumeration value="pli" />
+      <xs:enumeration value="pol" />
+      <xs:enumeration value="pon" />
+      <xs:enumeration value="por" />
+      <xs:enumeration value="pra" />
+      <xs:enumeration value="pro" />
+      <xs:enumeration value="pus" />
+      <xs:enumeration value="que" />
+      <xs:enumeration value="raj" />
+      <xs:enumeration value="rap" />
+      <xs:enumeration value="rar" />
+      <xs:enumeration value="roa" />
+      <xs:enumeration value="roh" />
+      <xs:enumeration value="rom" />
+      <xs:enumeration value="rum" />
+      <xs:enumeration value="run" />
+      <xs:enumeration value="rus" />
+      <xs:enumeration value="sad" />
+      <xs:enumeration value="sag" />
+      <xs:enumeration value="sah" />
+      <xs:enumeration value="sai" />
+      <xs:enumeration value="sal" />
+      <xs:enumeration value="sam" />
+      <xs:enumeration value="san" />
+      <xs:enumeration value="sao" />
+      <xs:enumeration value="sas" />
+      <xs:enumeration value="sat" />
+      <xs:enumeration value="scc" />
+      <xs:enumeration value="sco" />
+      <xs:enumeration value="scr" />
+      <xs:enumeration value="sel" />
+      <xs:enumeration value="sem" />
+      <xs:enumeration value="sga" />
+      <xs:enumeration value="sgn" />
+      <xs:enumeration value="shn" />
+      <xs:enumeration value="sho" />
+      <xs:enumeration value="sid" />
+      <xs:enumeration value="sin" />
+      <xs:enumeration value="sio" />
+      <xs:enumeration value="sit" />
+      <xs:enumeration value="sla" />
+      <xs:enumeration value="slo" />
+      <xs:enumeration value="slv" />
+      <xs:enumeration value="sma" />
+      <xs:enumeration value="sme" />
+      <xs:enumeration value="smi" />
+      <xs:enumeration value="smj" />
+      <xs:enumeration value="smn" />
+      <xs:enumeration value="smo" />
+      <xs:enumeration value="sms" />
+      <xs:enumeration value="sna" />
+      <xs:enumeration value="snd" />
+      <xs:enumeration value="snh" />
+      <xs:enumeration value="snk" />
+      <xs:enumeration value="sog" />
+      <xs:enumeration value="som" />
+      <xs:enumeration value="son" />
+      <xs:enumeration value="sot" />
+      <xs:enumeration value="spa" />
+      <xs:enumeration value="srd" />
+      <xs:enumeration value="srr" />
+      <xs:enumeration value="ssa" />
+      <xs:enumeration value="sso" />
+      <xs:enumeration value="ssw" />
+      <xs:enumeration value="suk" />
+      <xs:enumeration value="sun" />
+      <xs:enumeration value="sus" />
+      <xs:enumeration value="sux" />
+      <xs:enumeration value="swa" />
+      <xs:enumeration value="swe" />
+      <xs:enumeration value="swz" />
+      <xs:enumeration value="syr" />
+      <xs:enumeration value="tag" />
+      <xs:enumeration value="tah" />
+      <xs:enumeration value="tai" />
+      <xs:enumeration value="taj" />
+      <xs:enumeration value="tam" />
+      <xs:enumeration value="tar" />
+      <xs:enumeration value="tat" />
+      <xs:enumeration value="tel" />
+      <xs:enumeration value="tem" />
+      <xs:enumeration value="ter" />
+      <xs:enumeration value="tet" />
+      <xs:enumeration value="tgk" />
+      <xs:enumeration value="tgl" />
+      <xs:enumeration value="tha" />
+      <xs:enumeration value="tib" />
+      <xs:enumeration value="tig" />
+      <xs:enumeration value="tir" />
+      <xs:enumeration value="tiv" />
+      <xs:enumeration value="tkl" />
+      <xs:enumeration value="tli" />
+      <xs:enumeration value="tmh" />
+      <xs:enumeration value="tog" />
+      <xs:enumeration value="ton" />
+      <xs:enumeration value="tpi" />
+      <xs:enumeration value="tru" />
+      <xs:enumeration value="tsi" />
+      <xs:enumeration value="tsn" />
+      <xs:enumeration value="tso" />
+      <xs:enumeration value="tsw" />
+      <xs:enumeration value="tuk" />
+      <xs:enumeration value="tum" />
+      <xs:enumeration value="tup" />
+      <xs:enumeration value="tur" />
+      <xs:enumeration value="tut" />
+      <xs:enumeration value="tvl" />
+      <xs:enumeration value="twi" />
+      <xs:enumeration value="tyv" />
+      <xs:enumeration value="udm" />
+      <xs:enumeration value="uga" />
+      <xs:enumeration value="uig" />
+      <xs:enumeration value="ukr" />
+      <xs:enumeration value="umb" />
+      <xs:enumeration value="und" />
+      <xs:enumeration value="urd" />
+      <xs:enumeration value="uzb" />
+      <xs:enumeration value="vai" />
+      <xs:enumeration value="ven" />
+      <xs:enumeration value="vie" />
+      <xs:enumeration value="vol" />
+      <xs:enumeration value="vot" />
+      <xs:enumeration value="wak" />
+      <xs:enumeration value="wal" />
+      <xs:enumeration value="war" />
+      <xs:enumeration value="was" />
+      <xs:enumeration value="wel" />
+      <xs:enumeration value="wen" />
+      <xs:enumeration value="wln" />
+      <xs:enumeration value="wol" />
+      <xs:enumeration value="xal" />
+      <xs:enumeration value="xho" />
+      <xs:enumeration value="yao" />
+      <xs:enumeration value="yap" />
+      <xs:enumeration value="yid" />
+      <xs:enumeration value="yor" />
+      <xs:enumeration value="ypk" />
+      <xs:enumeration value="zap" />
+      <xs:enumeration value="zen" />
+      <xs:enumeration value="zha" />
+      <xs:enumeration value="znd" />
+      <xs:enumeration value="zul" />
+      <xs:enumeration value="zun" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="LEPExitReasonType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="50" />
+      <xs:enumeration value="51" />
+      <xs:enumeration value="52" />
+      <xs:enumeration value="53" />
+      <xs:enumeration value="54" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="LEPExitDateType">
+    <xs:restriction base="xs:date">
+      <xs:minInclusive value="1753-01-01" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="LEPReEntryDateType">
+    <xs:restriction base="xs:date">
+      <xs:minInclusive value="1753-01-01" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="AdvancedAcceleratedType">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="ProgramModel" type="ProgramModelType" />
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="SpecialProgramOptions" type="SpecialProgramOptionsType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="ProgramModelType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="01" />
+      <xs:enumeration value="02" />
+      <xs:enumeration value="03" />
+      <xs:enumeration value="04" />
+      <xs:enumeration value="05" />
+      <xs:enumeration value="06" />
+      <xs:enumeration value="07" />
+      <xs:enumeration value="08" />
+      <xs:enumeration value="09" />
+      <xs:enumeration value="10" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="SpecialProgramOptionsType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="01" />
+      <xs:enumeration value="02" />
+      <xs:enumeration value="03" />
+      <xs:enumeration value="04" />
+      <xs:enumeration value="05" />
+      <xs:enumeration value="06" />
+      <xs:enumeration value="07" />
+      <xs:enumeration value="08" />
+      <xs:enumeration value="09" />
+      <xs:enumeration value="10" />
+      <xs:enumeration value="11" />
+      <xs:enumeration value="12" />
+      <xs:enumeration value="13" />
+      <xs:enumeration value="14" />
+      <xs:enumeration value="15" />
+      <xs:enumeration value="16" />
+      <xs:enumeration value="17" />
+      <xs:enumeration value="18" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="MigrantType">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="MigrantQualifyingMoveDate" type="MigrantQualifyingMoveDateType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="MigrantFundingSource" type="MigrantFundingSourceType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="MigrantTerm" type="MigrantTermType" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MigrantRegularTermInstrServices" type="MigrantRegularTermInstrServicesType" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MigrantReqularTermSupServices" type="MigrantReqularTermSupServicesType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="MigrantQualifyingMoveDateType">
+    <xs:restriction base="xs:date">
+      <xs:minInclusive value="1753-01-01" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="MigrantFundingSourceType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="1" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="3" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="MigrantTermType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="1" />
+      <xs:enumeration value="2" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="MigrantRegularTermInstrServicesType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="6031" />
+      <xs:enumeration value="6032" />
+      <xs:enumeration value="6033" />
+      <xs:enumeration value="6034" />
+      <xs:enumeration value="6035" />
+      <xs:enumeration value="6036" />
+      <xs:enumeration value="6037" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="MigrantReqularTermSupServicesType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="6041" />
+      <xs:enumeration value="6042" />
+      <xs:enumeration value="6043" />
+      <xs:enumeration value="6044" />
+      <xs:enumeration value="6045" />
+      <xs:enumeration value="6046" />
+      <xs:enumeration value="6047" />
+      <xs:enumeration value="6048" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="TitleITASType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TASInstructionalServices" type="TASInstructionalServicesType" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TASSupportServices" type="TASSupportServicesType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="TASInstructionalServicesType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="6011" />
+      <xs:enumeration value="6012" />
+      <xs:enumeration value="6013" />
+      <xs:enumeration value="6014" />
+      <xs:enumeration value="6015" />
+      <xs:enumeration value="6016" />
+      <xs:enumeration value="6017" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TASSupportServicesType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="6021" />
+      <xs:enumeration value="6022" />
+      <xs:enumeration value="6023" />
+      <xs:enumeration value="6024" />
+      <xs:enumeration value="6025" />
+      <xs:enumeration value="6026" />
+      <xs:enumeration value="6027" />
+      <xs:enumeration value="6028" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="AdultEducationType">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="AdultEdFunding" type="AdultEdFundingType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="AdultEDCountPeriod" type="AdultEDCountPeriodType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="AdultFTE" type="AdultFTEType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="AdultFTEProgramCode" type="AdultFTEProgramCodeType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="DiplomaStatus" type="DiplomaStatusType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="AdultEdFundingType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="1" />
+      <xs:enumeration value="2" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AdultEDCountPeriodType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="JUL" />
+      <xs:enumeration value="SEP" />
+      <xs:enumeration value="FEB" />
+      <xs:enumeration value="APR" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AdultFTEType">
+    <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="0.00" />
+      <xs:maxInclusive value="1.00" />
+      <xs:fractionDigits value="2" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AdultFTEProgramCodeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="3311" />
+      <xs:enumeration value="3312" />
+      <xs:enumeration value="3313" />
+      <xs:enumeration value="3314" />
+      <xs:enumeration value="3315" />
+      <xs:enumeration value="3316" />
+      <xs:enumeration value="3317" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="DiplomaStatusType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="1" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="3" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="InitialIEPType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="DateOfParentalConsent" type="DateOfParentalConsentType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="TimelinessOfInitialIEP" type="TimelinessOfInitialIEPType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ResultOfInitialIEP" type="ResultOfInitialIEPType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DaysBeyondTimeline" type="DaysBeyondTimelineType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="DateOfParentalConsentType">
+    <xs:restriction base="xs:date">
+      <xs:minInclusive value="1753-01-01" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TimelinessOfInitialIEPType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="11" />
+      <xs:enumeration value="12" />
+      <xs:enumeration value="13" />
+      <xs:enumeration value="14" />
+      <xs:enumeration value="15" />
+      <xs:enumeration value="16" />
+      <xs:enumeration value="17" />
+      <xs:enumeration value="18" />
+      <xs:enumeration value="19" />
+      <xs:enumeration value="20" />
+      <xs:enumeration value="21" />
+      <xs:enumeration value="22" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ResultOfInitialIEPType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="1" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="3" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="DaysBeyondTimelineType">
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="0" />
+      <xs:maxInclusive value="365" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="SpecialEducationType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="PrimaryDisability" type="PrimaryDisabilityType" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SecondaryDisability" type="SecondaryDisabilityType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="IEPDate" type="IEPDateType" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SupportServices" type="SupportServicesType" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProgramServiceCode" type="ProgramServiceCodeType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="PrimaryEducationalSetting" type="PrimaryEducationalSettingType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="PlacedByAnotherDistIEP" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="SpecEdExitReason" type="SpecEdExitReasonType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="SpecEdExitDate" type="SpecEdExitDateType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Section52FTE" type="Section52FTEType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Section53FTE" type="Section53FTEType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="PrimaryDisabilityType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="05" />
+      <xs:enumeration value="06" />
+      <xs:enumeration value="07" />
+      <xs:enumeration value="08" />
+      <xs:enumeration value="09" />
+      <xs:enumeration value="10" />
+      <xs:enumeration value="11" />
+      <xs:enumeration value="13" />
+      <xs:enumeration value="14" />
+      <xs:enumeration value="15" />
+      <xs:enumeration value="16" />
+      <xs:enumeration value="17" />
+      <xs:enumeration value="20" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="SecondaryDisabilityType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="22" />
+      <xs:enumeration value="24" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="IEPDateType">
+    <xs:restriction base="xs:date">
+      <xs:minInclusive value="1753-01-01" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="SupportServicesType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="200" />
+      <xs:enumeration value="210" />
+      <xs:enumeration value="220" />
+      <xs:enumeration value="230" />
+      <xs:enumeration value="240" />
+      <xs:enumeration value="250" />
+      <xs:enumeration value="260" />
+      <xs:enumeration value="280" />
+      <xs:enumeration value="290" />
+      <xs:enumeration value="291" />
+      <xs:enumeration value="310" />
+      <xs:enumeration value="320" />
+      <xs:enumeration value="360" />
+      <xs:enumeration value="370" />
+      <xs:enumeration value="383" />
+      <xs:enumeration value="390" />
+      <xs:enumeration value="400" />
+      <xs:enumeration value="406" />
+      <xs:enumeration value="410" />
+      <xs:enumeration value="440" />
+      <xs:enumeration value="450" />
+      <xs:enumeration value="460" />
+      <xs:enumeration value="470" />
+      <xs:enumeration value="480" />
+      <xs:enumeration value="490" />
+      <xs:enumeration value="491" />
+      <xs:enumeration value="492" />
+      <xs:enumeration value="493" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ProgramServiceCodeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="110" />
+      <xs:enumeration value="120" />
+      <xs:enumeration value="130" />
+      <xs:enumeration value="140" />
+      <xs:enumeration value="150" />
+      <xs:enumeration value="160" />
+      <xs:enumeration value="170" />
+      <xs:enumeration value="180" />
+      <xs:enumeration value="190" />
+      <xs:enumeration value="191" />
+      <xs:enumeration value="192" />
+      <xs:enumeration value="193" />
+      <xs:enumeration value="194" />
+      <xs:enumeration value="270" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PrimaryEducationalSettingType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="02" />
+      <xs:enumeration value="03" />
+      <xs:enumeration value="05" />
+      <xs:enumeration value="06" />
+      <xs:enumeration value="07" />
+      <xs:enumeration value="11" />
+      <xs:enumeration value="12" />
+      <xs:enumeration value="13" />
+      <xs:enumeration value="18" />
+      <xs:enumeration value="19" />
+      <xs:enumeration value="20" />
+      <xs:enumeration value="22" />
+      <xs:enumeration value="23" />
+      <xs:enumeration value="25" />
+      <xs:enumeration value="26" />
+      <xs:enumeration value="27" />
+      <xs:enumeration value="31" />
+      <xs:enumeration value="38" />
+      <xs:enumeration value="41" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="SpecEdExitReasonType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="30" />
+      <xs:enumeration value="31" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="SpecEdExitDateType">
+    <xs:restriction base="xs:date">
+      <xs:minInclusive value="1753-01-01" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Section52FTEType">
+    <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="0.00" />
+      <xs:maxInclusive value="1.00" />
+      <xs:fractionDigits value="2" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Section53FTEType">
+    <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="0.00" />
+      <xs:maxInclusive value="1.00" />
+      <xs:fractionDigits value="2" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ECSpecialEdAssessmentType">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="AssessmentTool" type="AssessmentToolType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="OtherToolComments" type="OtherToolCommentsType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="EntryAssessmentDate" type="EntryAssessmentDateType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ExitAssessmentDate" type="ExitAssessmentDateType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Outcome1A" type="Outcome1AType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Outcome1B" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Outcome2A" type="Outcome2AType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Outcome2B" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Outcome3A" type="Outcome3AType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Outcome3B" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="AssessmentToolType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="01" />
+      <xs:enumeration value="02" />
+      <xs:enumeration value="03" />
+      <xs:enumeration value="04" />
+      <xs:enumeration value="05" />
+      <xs:enumeration value="06" />
+      <xs:enumeration value="07" />
+      <xs:enumeration value="08" />
+      <xs:enumeration value="09" />
+      <xs:enumeration value="10" />
+      <xs:enumeration value="11" />
+      <xs:enumeration value="12" />
+      <xs:enumeration value="13" />
+      <xs:enumeration value="14" />
+      <xs:enumeration value="15" />
+      <xs:enumeration value="16" />
+      <xs:enumeration value="17" />
+      <xs:enumeration value="18" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="OtherToolCommentsType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="0" />
+      <xs:maxLength value="25" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EntryAssessmentDateType">
+    <xs:restriction base="xs:date">
+      <xs:minInclusive value="1753-01-01" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ExitAssessmentDateType">
+    <xs:restriction base="xs:date">
+      <xs:minInclusive value="1753-01-01" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Outcome1AType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="1" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="3" />
+      <xs:enumeration value="4" />
+      <xs:enumeration value="5" />
+      <xs:enumeration value="6" />
+      <xs:enumeration value="7" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Outcome2AType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="1" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="3" />
+      <xs:enumeration value="4" />
+      <xs:enumeration value="5" />
+      <xs:enumeration value="6" />
+      <xs:enumeration value="7" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Outcome3AType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="1" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="3" />
+      <xs:enumeration value="4" />
+      <xs:enumeration value="5" />
+      <xs:enumeration value="6" />
+      <xs:enumeration value="7" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="DisciplinaryIncidentType">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="IncidentID" type="IncidentIDType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="DateOfIncident" type="DateOfIncidentType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="IncidentType" type="IncidentTypeType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="LocationOfIncident" type="LocationOfIncidentType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="TimeOfIncident" type="TimeOfIncidentType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="EstimatedCostPropertyDamage" type="EstimatedCostPropertyDamageType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="PrimaryVictimOfIncident" type="PrimaryVictimOfIncidentType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="IncidentIDType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="10" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="DateOfIncidentType">
+    <xs:restriction base="xs:date">
+      <xs:minInclusive value="1753-01-01" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="IncidentTypeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="01" />
+      <xs:enumeration value="02" />
+      <xs:enumeration value="03" />
+      <xs:enumeration value="04" />
+      <xs:enumeration value="05" />
+      <xs:enumeration value="07" />
+      <xs:enumeration value="08" />
+      <xs:enumeration value="09" />
+      <xs:enumeration value="20" />
+      <xs:enumeration value="21" />
+      <xs:enumeration value="22" />
+      <xs:enumeration value="23" />
+      <xs:enumeration value="30" />
+      <xs:enumeration value="31" />
+      <xs:enumeration value="40" />
+      <xs:enumeration value="41" />
+      <xs:enumeration value="42" />
+      <xs:enumeration value="43" />
+      <xs:enumeration value="44" />
+      <xs:enumeration value="45" />
+      <xs:enumeration value="46" />
+      <xs:enumeration value="47" />
+      <xs:enumeration value="48" />
+      <xs:enumeration value="49" />
+      <xs:enumeration value="50" />
+      <xs:enumeration value="51" />
+      <xs:enumeration value="52" />
+      <xs:enumeration value="53" />
+      <xs:enumeration value="54" />
+      <xs:enumeration value="55" />
+      <xs:enumeration value="56" />
+      <xs:enumeration value="70" />
+      <xs:enumeration value="71" />
+      <xs:enumeration value="72" />
+      <xs:enumeration value="73" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="LocationOfIncidentType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="1" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="3" />
+      <xs:enumeration value="4" />
+      <xs:enumeration value="5" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TimeOfIncidentType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="1" />
+      <xs:enumeration value="2" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EstimatedCostPropertyDamageType">
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="0" />
+      <xs:maxInclusive value="99999" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PrimaryVictimOfIncidentType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="01" />
+      <xs:enumeration value="02" />
+      <xs:enumeration value="03" />
+      <xs:enumeration value="04" />
+      <xs:enumeration value="05" />
+      <xs:enumeration value="06" />
+      <xs:enumeration value="07" />
+      <xs:enumeration value="08" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="DisciplinaryConsequenceType">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="IncidentID" type="IncidentIDType1" />
+      <xs:element minOccurs="1" maxOccurs="1" name="DisciplinaryAction" type="DisciplinaryActionType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="StartOfAction" type="StartOfActionType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="LengthOfAction" type="LengthOfActionType" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FollowUp" type="FollowUpType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="IncidentIDType1">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="10" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="DisciplinaryActionType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="1" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="3" />
+      <xs:enumeration value="4" />
+      <xs:enumeration value="5" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StartOfActionType">
+    <xs:restriction base="xs:date">
+      <xs:minInclusive value="1753-01-01" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="LengthOfActionType">
+    <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="0.5" />
+      <xs:maxInclusive value="888.0" />
+      <xs:fractionDigits value="1" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="FollowUpType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="01" />
+      <xs:enumeration value="02" />
+      <xs:enumeration value="03" />
+      <xs:enumeration value="04" />
+      <xs:enumeration value="05" />
+      <xs:enumeration value="06" />
+      <xs:enumeration value="07" />
+      <xs:enumeration value="08" />
+      <xs:enumeration value="09" />
+      <xs:enumeration value="10" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="AttendanceType">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="DaysAttended" type="DaysAttendedType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="TotalPossibleAttendence" type="TotalPossibleAttendenceType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="DaysAttendedType">
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="0" />
+      <xs:maxInclusive value="365" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TotalPossibleAttendenceType">
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="0" />
+      <xs:maxInclusive value="365" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="SNEType">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="SupplementalNutritionEligibility" type="SupplementalNutritionEligibilityType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="SupplementalNutritionEligibilityType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="1" />
+      <xs:enumeration value="2" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="MigrantCurriculumCoursesType">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="SubjectAreaCode" type="SubjectAreaCodeType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="CourseIdentifierCode" type="CourseIdentifierCodeType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="LocalCourseId" type="LocalCourseIdType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="LocalCourseTitle" type="LocalCourseTitleType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="CourseType" type="CourseTypeType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="AcademicYear" type="AcademicYearType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="CourseSection" type="CourseSectionType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="TermType" type="TermTypeType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ClockHours" type="ClockHoursType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="GradetoDate" type="GradetoDateType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="CreditsGranted" type="CreditsGrantedType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="FinalGrade" type="FinalGradeType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="CompletionStatus" type="CompletionStatusType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="SubjectAreaCodeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="90" />
+      <xs:enumeration value="91" />
+      <xs:enumeration value="92" />
+      <xs:enumeration value="93" />
+      <xs:enumeration value="94" />
+      <xs:enumeration value="95" />
+      <xs:enumeration value="96" />
+      <xs:enumeration value="98" />
+      <xs:enumeration value="99" />
+      <xs:enumeration value="01" />
+      <xs:enumeration value="02" />
+      <xs:enumeration value="03" />
+      <xs:enumeration value="04" />
+      <xs:enumeration value="05" />
+      <xs:enumeration value="06" />
+      <xs:enumeration value="07" />
+      <xs:enumeration value="08" />
+      <xs:enumeration value="09" />
+      <xs:enumeration value="10" />
+      <xs:enumeration value="11" />
+      <xs:enumeration value="12" />
+      <xs:enumeration value="13" />
+      <xs:enumeration value="14" />
+      <xs:enumeration value="15" />
+      <xs:enumeration value="16" />
+      <xs:enumeration value="17" />
+      <xs:enumeration value="18" />
+      <xs:enumeration value="19" />
+      <xs:enumeration value="20" />
+      <xs:enumeration value="21" />
+      <xs:enumeration value="22" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="CourseIdentifierCodeType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]{3,3}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="LocalCourseIdType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="250" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="LocalCourseTitleType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="250" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="CourseTypeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="01" />
+      <xs:enumeration value="02" />
+      <xs:enumeration value="03" />
+      <xs:enumeration value="04" />
+      <xs:enumeration value="05" />
+      <xs:enumeration value="06" />
+      <xs:enumeration value="00" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AcademicYearType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="2007-2008" />
+      <xs:enumeration value="2008-2009" />
+      <xs:enumeration value="2009-2010" />
+      <xs:enumeration value="2010-2011" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="CourseSectionType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="01" />
+      <xs:enumeration value="02" />
+      <xs:enumeration value="03" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TermTypeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="0827" />
+      <xs:enumeration value="0828" />
+      <xs:enumeration value="0829" />
+      <xs:enumeration value="0830" />
+      <xs:enumeration value="0831" />
+      <xs:enumeration value="0832" />
+      <xs:enumeration value="0833" />
+      <xs:enumeration value="0834" />
+      <xs:enumeration value="0835" />
+      <xs:enumeration value="0837" />
+      <xs:enumeration value="9999" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ClockHoursType">
+    <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="0" />
+      <xs:maxInclusive value="1080" />
+      <xs:fractionDigits value="2" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="GradetoDateType">
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="0" />
+      <xs:maxInclusive value="100" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="CreditsGrantedType">
+    <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="0.00" />
+      <xs:maxInclusive value="9.99" />
+      <xs:fractionDigits value="2" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="FinalGradeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="A" />
+      <xs:enumeration value="B" />
+      <xs:enumeration value="C" />
+      <xs:enumeration value="D" />
+      <xs:enumeration value="E" />
+      <xs:enumeration value="F" />
+      <xs:enumeration value="I" />
+      <xs:enumeration value="N" />
+      <xs:enumeration value="NP" />
+      <xs:enumeration value="P" />
+      <xs:enumeration value="S" />
+      <xs:enumeration value="U" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="CompletionStatusType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AU" />
+      <xs:enumeration value="OE" />
+      <xs:enumeration value="CP" />
+      <xs:enumeration value="CF" />
+      <xs:enumeration value="WE" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

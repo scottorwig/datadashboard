@@ -1,0 +1,46 @@
+{% extends "base.html"  %}
+{% block title %} {{ head_title }} {% endblock %}
+<div class="wrapperdiv">
+{% block head %} {{ page_title }}{% endblock %}
+
+
+{% block content %}
+<div class="instructional_text">
+	<p>{{ messageToUser }}</p>
+	<p/>
+	Logged into the {{ account.name }} account. | <a href="/discipline/enter_incident/">Enter incident.</a> | <a href="/discipline/">Back to main page</a> | <a href="/discipline/discipline_logout/">Log Out</a>
+</div>
+<div>
+    {% if possible_motivation_list_with_count %}
+    <table class="centered">
+        <tr>
+            <td><span class="descriptive_text">Possible Motivation</span></td>
+            <td><span class="descriptive_text">Incidences</span></td>
+        </tr>
+        {% for possible_motivation in possible_motivation_list_with_count %}
+            <tr>
+                <td class="left_aligned"><a href="/discipline/view_incidents_possible_motivation/{{ possible_motivation.0 }}/">{{ possible_motivation.0 }}</a></td>
+                <td>{{ possible_motivation.1 }}</td>
+            </tr>
+        {% endfor %}
+    {% endif %}
+    </table>
+</div>
+</div>
+<script type="text/javascript">
+  google.load("visualization", "1", {packages:["barchart"]});
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Possible Motivation');
+    data.addColumn('number', 'Incidents');
+    data.addRows({{ row_count }});
+    {{ google_setvalue|safe }}
+
+    var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+    chart.draw(data, {width: 600, height: 400, is3D: true, title: '{{ page_title }}'});
+  }
+</script>
+<p></p>
+<div id="chart_div" class="centered"></div>
+{% endblock %}

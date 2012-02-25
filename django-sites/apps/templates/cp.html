@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta http-equiv="Content-Style-Type" content="text/css">
+        <meta http-equiv="Content-Script-Type" content="text/javascript">
+
+        <title>TurnKey Django</title>
+        
+        <link rel="stylesheet" href="media/css/ui.tabs.css" type="text/css" media="print, projection, screen">
+        <link rel="stylesheet" href="media/css/base.css" type="text/css">
+
+        <script src="media/js/jquery-1.2.6.js" type="text/javascript"></script>
+        <script src="media/js/ui.core.js" type="text/javascript"></script>
+        <script src="media/js/ui.tabs.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            $(function() {
+                $('#container-1 > ul').tabs({ fx: { opacity: 'toggle'} });
+            });
+        </script>
+    </head>
+
+    <body>
+        <h1>TurnKey Django</h1>
+        
+        <div id="container-1">
+            <ul>
+                <li><a href="#cp"><span>Control Panel</span></a></li>
+            </ul>
+
+            <div id="cp">
+                <div class="fragment-content">
+                    <div>
+                        <a href="/admin"><img
+                        src="media/images/django.png"/>Administration</a>
+                    </div>
+                    <div>
+                        <a href="https://{{ http_host }}:12320"><img
+                        src="media/images/shell.png"/>Web Shell</a>
+                    </div>
+                    <div>
+                        <a href="https://{{ http_host }}:12321"><img
+                        src="media/images/webmin.png"/>Webmin</a>
+                    </div>
+                    <div></div>
+                    <div></div>
+
+                    <h2>Resources and references</h2>
+                    <ul>
+                        <li>Django default credentials:
+                            <i>username:</i> <b>admin</b>,
+                            <i>password:</i> <b>turnkey</b>
+                        </li>
+
+                        <li>Check out the Django 
+                        <a href="http://docs.djangoproject.com/en/dev/faq">
+                        FAQ</a>, <a href="http://docs.djangoproject.com/en/dev/">
+                        documentation</a>, and the excellent <a 
+                        href="http://www.djangobook.com">Django book</a></li>
+
+                        <li><a href="http://www.turnkeylinux.org/appliances/django">
+                        TurnKey Django release notes</a></li>
+                    </ul>
+
+                </div>
+            </div>
+
+        </div>
+    </body>
+</html>
+

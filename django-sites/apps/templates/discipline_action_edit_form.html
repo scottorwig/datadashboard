@@ -1,0 +1,345 @@
+{% extends "base.html"  %}
+{% block title %} {{ head_title }} {% endblock %}
+<div class="wrapperdiv">
+{% block head %} {{ page_title }}{% endblock %}
+{% block content %}
+
+<div class="wrapperdiv">
+    Use this page to <em>add disciplinary actions</em> to the incident that occurred on <b>{{ incident.event_date|date:"m/d/Y" }}</b> reported by <b>{{ incident.referrer }}</b> and described as:<br>
+    <b>{{ incident.description_of_incident }}</b>
+
+    <p>
+<div class="boxedinstructions">
+    {% if editing %}
+        <form action="/discipline/edit_disciplinary_action/{{ action.id }}/" method="post">
+        <input type="hidden" name="mi_incident_id" value="{{ action.mi_incident_id }}" />
+	<input type="hidden" name="school_year" value="{{ action.school_year }}" />
+    {% else %}
+        <form action="/discipline/add_disciplinary_action/{{ mi_incident_id }}/" method="post">
+    {% endif %}
+        <table>
+            <tr>
+                <td>
+                    {{ form.student.errors }}
+                    <label for="id_student">Student:</label>
+                    {{ form.student }}
+                </td>
+                <td>
+                    {{ form.student_grade.errors }}
+                    <label for="id_student_grade">Grade</label>
+                    {{ form.student_grade }}
+                </td>
+                <td>
+                    Rule Broken:<br>
+                    {{ form.rule_broken_respectful }} <label fr="id_rule_broken_respectful">Respectful</label><br>
+                    {{ form.rule_broken_responsible }} <label fr="rule_broken_responsible">Responsible</label><br>
+                    {{ form.rule_broken_safe }} <label fr="rule_broken_safe">Safe</label><br>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3"><hr></td>
+            </tr>
+            <tr>
+                <td colspan="3"><b>BEHAVIOR:</b></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <p><em>
+                        Major problem behaviors are reported to the state when then include either ISS or OSS.<br/>
+                        Behaviors that start with "MI - " are state categories. Those without "MI -" will be reported to the state as "Other".
+                    </em></p>
+                </td>
+            </tr>
+            <tr>
+                
+                <td>
+                    {{ form.problem_behaviors_minor.errors }}
+                    <label for="id_problem_behaviors_minor">Problem Behaviors - Minor:</label><br>
+                    {{ form.problem_behaviors_minor }}<br>
+                    {{ form.problem_behaviors_minor_comment.errors }}
+                    <label for="id_problem_behaviors_minor_comment">Comment:</label><br>
+                    {{ form.problem_behaviors_minor_comment }}
+                </td>
+                <td colspan="2">
+                    {{ form.problem_behaviors_major.errors }}
+                    <label for="id_problem_behaviors_major">Problem Behaviors - Major:</label><br>
+                    {{ form.problem_behaviors_major }}<br>
+                    {{ form.problem_behaviors_major_comment.errors }}
+                    <label for="id_problem_behaviors_major_comment">Comment:</label><br>
+                    {{ form.problem_behaviors_major_comment }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3"><hr></td>
+            </tr>
+            <tr>
+                <td colspan="3"><b>CONSEQUENCE:</b></td>
+            </tr>
+            <tr>
+                <td>
+                    Count 1 (Active Teaching / Prompting to Expectation):{{ form.count1 }}<br/>
+                    Count 2 (Problem Solving/Classroom Management ):{{ form.count2 }}<br/>
+                    Count 3 (Problem Solving with Student/Staff & Parent Contact):{{ form.count3 }}<br/>
+                    
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Prior Teacher Action:</b><br>
+                    <div class="inner box">
+                        {{ form.prior_conference_with_student.errors }}
+                        <label for="id_prior_conference_with_student">Prior conference with student</label>
+                        {{ form.prior_conference_with_student }}<br>
+                        {{ form.prior_changed_student_seat.errors }}
+                        <label for="id_prior_changed_student_seat">Changed student's seat</label>
+                        {{ form.prior_changed_student_seat }}<br>
+                        {{ form.prior_consulted_counselor.errors }}
+                        <label for="id_prior_consulted_counselor">Consulted counselor</label>
+                        {{ form.prior_consulted_counselor }}<br>
+                    </div>
+                </td>
+                <td>
+                    &nbsp;<br>
+                    <div class="inner box">
+                        {{ form.prior_counselor_conference.errors }}
+                        <label for="id_prior_counselor_conference">Counselor conference</label>
+                        {{ form.prior_counselor_conference }}<br>
+                        {{ form.prior_parent_contact.errors }}
+                        <label for="id_prior_parent_contact">Parent contact</label>
+                        {{ form.prior_parent_contact }}<br>
+                        {{ form.prior_other_date.errors }}
+                        <label for="id_prior_other_date">Other</label>
+                        {{ form.prior_other_date }}<br>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    {{ form.prior_other_notes.errors }}
+                    <label for="id_prior_other_notes">Notes on prior teacher action:</label><br>
+                    {{ form.prior_other_notes }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3"><hr></td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Administrative action taken:</b><br>
+                    <div class="inner box">
+                        {{ form.admin_student_conference.errors }}
+                        <label for="id_admin_student_conference">Admin/student conference</label>
+                        {{ form.admin_student_conference }}<br>
+                        {{ form.admin_parent_teacher_conference.errors }}
+                        <label for="id_admin_parent_teacher_conference">Admin/parent/teacher conference</label>
+                        {{ form.admin_parent_teacher_conference }}<br>
+                        {{ form.admin_warning.errors }}
+                        <label for="id_admin_warning">Administrative warning</label>
+                        {{ form.admin_warning }}<br>
+                        {{ form.admin_phone_call_to_parent.errors }}
+                        <label for="id_admin_phone_call_to_parent">Phone call to parent</label>
+                        {{ form.admin_phone_call_to_parent }}<br>
+                        {{ form.admin_letter_home.errors }}
+                        <label for="id_admin_letter_home">Letter/certified letter sent home</label>
+                        {{ form.admin_letter_home }}<br>
+                    </div>
+                </td>
+                <td colspan="2">
+                    &nbsp;<br>
+                    <div class="inner box">
+                        ISS &nbsp;
+                            {{ form.iss_start_date.errors }}
+                            <label for="id_iss_start_date">Start date:</label>
+                            {{ form.iss_start_date }}
+                            {{ form.iss_end_date.errors }}
+                            <label for="id_iss_end_date">End date:</label>
+                            {{ form.iss_end_date }}
+                            {{ form.iss_number_days.errors }}
+                            <label for="id_iss_number_days">#days:</label>
+                            {{ form.iss_number_days }}<br>
+                        OSS &nbsp;
+                            {{ form.oss_start_date.errors }}
+                            <label for="id_oss_start_date">Start date:</label>
+                            {{ form.oss_start_date }}
+                            {{ form.oss_end_date.errors }}
+                            <label for="id_oss_end_date">End date:</label>
+                            {{ form.oss_end_date }}
+                            {{ form.oss_number_days.errors }}
+                            <label for="id_oss_number_days">#days:</label>
+                            {{ form.oss_number_days }}<br>
+                        Detention &nbsp;
+                            {{ form.detention_start_date.errors }}
+                            <label for="id_detention_start_date">Start date:</label>
+                            {{ form.detention_start_date }}
+                            {{ form.detention_end_date.errors }}
+                            <label for="id_detention_end_date">End date:</label>
+                            {{ form.detention_end_date }}
+                            {{ form.detention_number_days.errors }}
+                            <label for="id_detention_number_days">#days:</label>
+                            {{ form.detention_number_days }}<br>
+			Expulsion &nbsp;
+                            {{ form.expulsion_start_date.errors }}
+                            <label for="id_detention_start_date">Start date:</label>
+                            {{ form.expulsion_start_date }}
+                            {{ form.expulsion_end_date.errors }}
+                            <label for="id_detention_end_date">End date:</label>
+                            {{ form.expulsion_end_date }}
+                            {{ form.expulsion_number_days.errors }}
+                            <label for="id_expulsion_number_days">#days:</label>
+                            {{ form.expulsion_number_days }}<br>
+                        {{ form.other_admin_action.errors }}
+                        <label for="id_other_admin_action">Other:</label>
+                        {{ form.other_admin_action }}<br>
+                        Parent conference required {{ form.parent_conference_required }} before return on {{ form.return_date }}
+
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3"><hr></td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    Signatures:<br>
+                    <label for="id_">Parent signature on </label>{{ form.parent_signature_date }}<br>
+                    <label for="id_">Student signature on </label>{{ form.student_signature_date }}<br>
+                    <label for="id_">Teacher signature on </label>{{ form.teacher_signature_date }}<br>
+                    <label for="id_">Administrator signature on </label>{{ form.administrator_signature_date }}
+                </td>
+            </tr>
+        </table>
+        <input type="submit" id="long-submit-button" value="Add or change this action" size="600"/>
+    </form>
+</div>
+
+</div>
+
+<script type="text/javascript">
+    $(function() {
+    var studentList = [{{ studentdropdownstring|safe }}];
+    $("#id_student").autocomplete({source: studentList});
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+    $("#id_prior_conference_with_student").datepicker();
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+    $("#id_prior_changed_student_seat").datepicker();
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+    $("#id_prior_consulted_counselor").datepicker();
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+    $("#id_prior_counselor_conference").datepicker();
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+    $("#id_prior_parent_contact").datepicker();
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+    $("#id_prior_other_date").datepicker();
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+    $("#id_admin_student_conference").datepicker();
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+    $("#id_admin_parent_teacher_conference").datepicker();
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+    $("#id_admin_warning").datepicker();
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+    $("#id_admin_phone_call_to_parent").datepicker();
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+    $("#id_admin_letter_home").datepicker();
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+    $("#id_iss_start_date").datepicker();
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+    $("#id_iss_end_date").datepicker();
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+    $("#id_oss_start_date").datepicker();
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+    $("#id_oss_end_date").datepicker();
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+    $("#id_detention_start_date").datepicker();
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+    $("#id_detention_end_date").datepicker();
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+    $("#id_expulsion_start_date").datepicker();
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+    $("#id_expulsion_end_date").datepicker();
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+    $("#id_return_date").datepicker();
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+    $("#id_parent_signature_date").datepicker();
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+    $("#id_student_signature_date").datepicker();
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+    $("#id_teacher_signature_date").datepicker();
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+    $("#id_administrator_signature_date").datepicker();
+    });
+</script>
+
+{% endblock %}
+</div>

@@ -1,0 +1,36 @@
+{% extends "base.html"  %}
+{% block title %} {{ head_title }} {% endblock %}
+<div class="wrapperdiv">
+{% block head %} {{ page_title }}{% endblock %}
+
+
+{% block content %}
+
+<div>
+    
+    <table>
+	<tr><th>Name</th><th>Days Suspended</th><th>Gender</th><th>Ethnicity</th></tr>
+	{% for student in students_with_suspensions %}
+	    <tr style="background-color:{{background_color}}"><td style="padded_default"><a href="/discipline/view_incidents_student/{{ student.0}}/">{{ student.2 }} {{ student.3 }}</a></td><td>{{ student.4 }}</td><td>{{ student.5 }}</td><td>{{ student.6 }}</td></tr>
+	{% endfor %}
+    </table>
+    
+</div>
+</div>
+<script type="text/javascript">
+  google.load("visualization", "1", {packages:["barchart"]});
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Grade');
+    data.addColumn('number', 'Incidents');
+    data.addRows({{ row_count }});
+    {{ google_setvalue|safe }}
+
+    var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+    chart.draw(data, {width: 500, height: 300, is3D: true, title: '{{ page_title }}'});
+  }
+</script>
+<p></p>
+<div id="chart_div" class="centered"></div>
+{% endblock %}

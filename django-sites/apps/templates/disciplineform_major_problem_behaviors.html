@@ -1,0 +1,43 @@
+{% extends "base.html"  %}
+{% block title %} {{ head_title }} {% endblock %}
+<div class="wrapperdiv">
+{% block head %} {{ page_title }}{% endblock %}
+
+
+{% block content %}
+
+<div>
+    {% if problem_behaviors_major_list_with_count %}
+    <table class="centered">
+        <tr>
+            <td><span class="descriptive_text">Major Problem Behavior</span></td>
+            <td><span class="descriptive_text">Incidences</span></td>
+        </tr>
+        {% for problem_behaviors_major in problem_behaviors_major_list_with_count %}
+            <tr>
+                <td class="left_aligned"><a href="/discipline/view_incidents_problem_behaviors_major/{{ problem_behaviors_major.0 }}/">{{ problem_behaviors_major.0 }}</a></td>
+                <td>{{ problem_behaviors_major.1 }}</td>
+            </tr>
+        {% endfor %}
+    {% endif %}
+    </table>
+</div>
+</div>
+
+<script type="text/javascript">
+  google.load("visualization", "1", {packages:["barchart"]});
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Major Problem Behavior');
+    data.addColumn('number', 'Incidents');
+    data.addRows({{ row_count }});
+    {{ google_setvalue|safe }}
+
+    var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+    chart.draw(data, {width: 875, height: 600, is3D: true, title: '{{ page_title }}'});
+  }
+</script>
+<p></p>
+<div id="chart_div" class="centered"></div>
+{% endblock %}

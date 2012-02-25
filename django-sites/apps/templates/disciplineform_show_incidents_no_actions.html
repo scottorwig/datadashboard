@@ -1,0 +1,42 @@
+{% extends "base.html"  %}
+{% block title %} {{ head_title }} {% endblock %}
+<div class="wrapperdiv">
+{% block head %} {{ page_title }}{% endblock %}
+{% block content %}
+
+<div>
+	<table class="centered">
+		<tr>
+			<td><td>
+			<td><span class="descriptive_text">BAIT ID</span></td>
+			<td><span class="descriptive_text">MI Incident ID</span></td>
+			<td><span class="descriptive_text">Date</span></td>
+			<td><span class="descriptive_text">Building</span></td>
+			<td><span class="descriptive_text">Location</span></td>
+			<td><span class="descriptive_text">School Year</span></td>
+			<td><span class="descriptive_text">Description</span></td>
+		<tr>
+		
+		{% if incident_list %}
+		{% for incident in incident_list %}
+			<tr>
+				<td><span class="smaller_text"><a href="/discipline/delete_incident/{{ incident.0 }}">delete</a><td>
+				<td><span class="smaller_text">{{ incident.0 }}</td>
+				<td><span class="smaller_text">{{ incident.1 }}</td>
+				<td><span class="smaller_text">{{ incident.2 }}</td>
+				<td><span class="smaller_text">{{ incident.3 }}</td>
+				<td><span class="smaller_text">{{ incident.4 }}</td>
+				<td><span class="smaller_text">{{ incident.5 }}</td>
+				<td><span class="smaller_text">{{ incident.6|truncatewords:8 }}</td>
+			</tr>
+		{% endfor %}
+		{% endif %}
+		
+	</table>
+</div>
+
+{% endblock %}
+
+
+    
+    

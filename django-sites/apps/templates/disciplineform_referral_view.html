@@ -1,0 +1,107 @@
+{% extends "base.html"  %}
+{% block title %} {{ head_title }} {% endblock %}
+<div class="wrapperdiv">
+{% block head %} {{ page_title }}{% endblock %}
+{% block content %}
+
+<div class="wrapperdiv">
+   
+    <p>
+    Date: <b>{{ incident.event_date }}</b><br>
+    Time: <b>{{ incident.event_time }}</b><br>
+    Referring staff: <b>{{ incident.referrer }}</b><br>
+    School Year: <b>{{ incident.school_year }}</b><br>
+    
+    <p>
+    <em>BEHAVIOR:</em><br>
+    Description:<br>
+    <b>{{ incident.description_of_incident }}</b>
+    {{ action.student }}
+    </p>
+
+
+    <div><p>{{ associated_actions|length }} disciplinary action(s):</p></div>
+    
+
+<div id="accordion">
+    {% for action in associated_actions %}
+	<h3><a href="#">{{ action.student }}</a></h3>
+	<div>
+	
+	    Grade: <b>{{ action.student_grade }}</b><br>
+	
+	    Expectation broken:
+	    {% if action.rule_broken_respectful %}
+		<b>Respectful&nbsp &nbsp</b>
+	    {% endif %}
+	    {% if action.rule_broken_responsible %}
+		<b>Responsible&nbsp &nbsp</b>
+	    {% endif %}
+	    {% if action.rule_broken_safe %}
+		<b>Safe&nbsp &nbsp</b>
+	    {% endif %}
+
+    <p>
+    {% if action.problem_behaviors_minor %}
+        Minor problem behavior: <b>{{ action.problem_behaviors_minor }}</b>
+    {% endif %}
+    {% if action.problem_behaviors_major %}
+        Major problem behavior: <b>{{ action.problem_behaviors_major }}</b>
+    {% endif %}
+    </p>
+    
+    <p>
+    <em>CONSEQUENCE:</em><br>
+    Count 1 (Active Teaching/Prompting to Expectation) - <b>{{ action.count1 }}</b><br>
+    Count 2 (Problem Solving/Classroom Management) - <b>{{ action.count2 }}</b><br>
+    Count 3 (Problem Solving with Student/Staff and Parent Contact) - <b>{{ action.count3 }}</b><br>
+    Count 4 (Office Discipline Referral) - <b>{{ action.count4 }}</b><br>                                                                                     
+    </p>
+    
+    <p>
+    <em>Administrative/Discipline Action</em>
+    {% if action.iss_start_date %}
+        <br>In-School Suspension: Start: <b>{{ action.iss_start_date }}</b>  End: <b>{{ action.iss_end_date }}</b>  Days: <b>{{ action.iss_number_days }}</b>
+    {% endif %}
+    {% if action.oss_start_date %}
+        <br>Out-of-School Suspension: Start: <b>{{ action.oss_start_date }}</b>  End: <b>{{ action.oss_end_date }}</b>  Days: <b>{{ action.oss_number_days }}</b>
+    {% endif %}
+    {% if action.admin_student_conference %}
+        <br>Admin/Student Conference: <b>{{ action.admin_student_conference }}</b>
+    {% endif %}
+    {% if action.admin_parent_teacher_conference %}
+        <br>Admin/Parent/Teacher: <b>{{ action.admin_parent_teacher_conference }}</b>
+    {% endif %}
+    {% if action.admin_warning %}
+        <br>Administrative Warning: <b>{{ action.admin_warning }}</b>
+    {% endif %}
+    {% if action.admin_phone_call_to_parent %}
+        <br>Phone call to parent: <b>{{ action.admin_phone_call_to_parent }}</b>
+    {% endif %}
+    {% if action.admin_letter_home %}
+        <br>Letter/certified letter sent home: <b>{{ action.admin_letter_home }}</b>
+    {% endif %}
+    </p>	
+	</div>
+    {% endfor %}
+</div>
+    
+    
+
+
+{{ debug_string }}
+</div>
+<script>
+	$(function() {
+		$( "#accordion" ).accordion();
+	});
+    </script>
+{% endblock %}
+
+<!--<p>-->
+    <!--Student: <b>{{ action.student }}</b><br>-->
+    <!--Grade: <b>{{ action.student_grade }}</b><br>-->
+    <!--School: <b>{{ action.school_id }}</b><br>-->
+    <!--</p-->>
+    
+    

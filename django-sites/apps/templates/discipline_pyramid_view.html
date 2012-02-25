@@ -1,0 +1,29 @@
+{% extends "base.html"  %}
+{% block title %} {{ head_title }} {% endblock %}
+<div class="wrapperdiv">
+{% block head %} {{ page_title }}{% endblock %}
+{% block content %}
+
+
+<div>
+	<table class="centered">
+		<tr>
+			<th>Total<br>population</th>
+			<th>Students with<br>0-1 incidents</th>
+			<th>Students with<br>2-5 incidents</th>
+			<th>Students with<br>6 or more incidents</th>
+		</tr>
+		<tr>
+			<td>{{ total_population }}</td>
+			<td>{{ zero_to_one }}</td>
+			<td>{{ two_to_five }}</td>
+			<td>{{ six_or_more }}</td>
+		</tr>
+	</table>
+</div>
+
+{% endblock %}
+
+
+    
+    

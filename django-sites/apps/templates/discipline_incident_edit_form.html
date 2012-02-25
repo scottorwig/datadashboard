@@ -1,0 +1,62 @@
+{% extends "base.html"  %}
+{% block title %} {{ head_title }} {% endblock %}
+<div class="wrapperdiv">
+{% block head %} {{ page_title }}{% endblock %}
+{% block content %}
+
+<script type="text/javascript">
+    $(function() {
+    var staffList = [{{ staffdropdownstring|safe }}];
+    $("#id_referrer").autocomplete({source: staffList});
+    });
+</script>
+
+<script type="text/javascript">
+    $(function() {
+    $("#id_event_date").datepicker();
+    });
+</script>
+
+
+<div class="wrapperdiv">
+    <div>    
+    Enter or edit a discipline <b>incident</b> on this page.<br>
+    After this incident data is entered, you may add students to this incident on the next page.
+    </div>
+    <p>
+
+        {% if mi_incident_id %}
+            <form action="/discipline/edit_incident/{{ mi_incident_id }}/" method="post">
+	    
+        {% else %}
+            <form action="/discipline/enter_incident/" method="post">
+        {% endif %}
+        <input type="hidden" name="mi_incident_id" value="{{ mi_incident_id }}" />
+	<input type="hidden" name="school_year" value="{{ school_year }}" />
+	
+        <div style="centered">
+            
+                Referring Staff: {{ form.referrer }}<br>
+		For staff not showing in the name drop down, enter staff as last name, first name.
+
+                <hr width="600">
+
+                Date of incident: {{ form.event_date }}<br>
+                Time of incident: {{ form.event_hour }}:{{ form.event_minute }}<br>
+                School day:{{ form.mi_time_of_incident }}<br/>
+
+
+                <hr width="600">
+                    <b>ANTECEDENTS</b>
+                    Location of incident:{{ form.location }}<br/>
+                    Classroom teacher (last name, first name):{{ form.classroom_teacher }}<br/>
+
+                    Description of Incident and Other Relevant Details::<br>
+                    {{ form.description_of_incident }}<br>
+        
+        <input type="submit" id="long-submit-button" value="Submit incident and add students" size="600"/>     
+        </div>
+    </form>
+</div>
+{% endblock %}
+</div>

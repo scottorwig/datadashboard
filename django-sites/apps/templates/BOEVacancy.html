@@ -1,0 +1,52 @@
+<html>
+<head>
+    <title>Lincoln Consolidated Schools<br>
+    Board of Education<br>
+    Trustee Vacancy Application</title>
+    <meta name="author" content="DbProgrammer" >
+	 <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1" >
+	 <meta http-equiv="Content-Script-Type" content="text/javascript" >
+	 <meta http-equiv="Content-Style-Type" content="text/css" >
+	 <link rel="stylesheet" type="text/css" href="/media/style.css" media="screen">
+	 <script type="text/javascript" src="/media/jquery.js"></script>
+</head>
+<body>
+	<h1>Board of Education Trustee Vacancy</h1>
+	<div class="wrapperdiv">
+
+	<div class="bodytext">
+		Please fill in <strong>all</strong> requested information.
+	</div>
+	<div>
+		<form action="" method="post" enctype="multipart/form-data">
+        <table>
+				<tr><td class="fieldnamecell">First Name:</td><td>{{ form.Name_First }}</td></tr>
+				<tr><td class="fieldnamecell">Last Name:</td><td>{{ form.Name_Last }}</td></tr>  
+				<tr><td class="fieldnamecell">Email:</td><td>{{ form.Email }}</td></tr>  
+				<tr><td class="fieldnamecell">Home Address</td>
+					<td>
+						<table style="font-size: smaller;">
+							<tr><td class="fieldnamecell">Street:</td><td>{{ form.Address_street }}</td></tr>
+							<tr><td class="fieldnamecell">City:</td><td>{{ form.Address_city }}</td></tr>
+							<tr><td class="fieldnamecell">State:</td><td>{{ form.Address_state }}</td>
+							<td class="fieldnamecell">Zip:</td><td>{{ form.Address_zip }}</td></tr>		
+						</table>					
+					</td>
+				</tr>  
+				<tr><td class="fieldnamecell">Home Phone:</td><td>{{ form.Phone_home }}</td></tr>  
+				<tr><td class="fieldnamecell">Cell/Alt. Phone:</td><td>{{ form.Phone_cell }}</td></tr>  
+				<tr><td class="fieldnamecell" colspan="2">What are your personal and professional qualifications?</td></tr>				
+				<tr><td colspan="2" style="text-align: right;">{{ form.Qualifications }}</td></tr>  
+				<tr><td class="fieldnamecell" colspan="2">Why do you wish to be considered for the position?</td></tr>
+				<tr><td colspan="2" style="text-align: right;">{{ form.WhyConsidered }}</td></tr>  
+				<tr><td class="fieldnamecell" colspan="2">Provide a summary of your prior involvement with the Lincoln School District.</td></tr>
+				<tr><td colspan="2" style="text-align: right;">{{ form.PriorInvolvement }}</td></tr>  
+				<tr><td class="fieldnamecell" colspan="2">Attach your resume if available. Must be in pdf or MSWord format.</td></tr>  
+				<tr><td class="fieldnamecell">File to upload:</td><td>{{ form.File }}</td></tr> 
+				<tr><td class="fieldnamecell"></td><td><input type="submit" value="Submit"></td></tr> 
+        </table>
+    </form>	
+	</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+{% extends "base.html"  %}
+{% block title %} {{ head_title }} {% endblock %}
+<div class="wrapperdiv">
+{% block head %} {{ page_title }}{% endblock %}
+{% block content %}
+
+
+<div>
+	<table class="centered">
+		<tr>
+			<td><td>
+			<td><span class="descriptive_text">BAIT ID</span></td>
+			<td><span class="descriptive_text">Student</span></td>
+			<td><span class="descriptive_text">School</span></td>
+			<td><span class="descriptive_text">Grade</span></td>
+			<td><span class="descriptive_text">Date entered</span></td>
+		<tr>
+		
+		{% if action_list %}
+		{% for action in action_list %}
+			<tr>
+				<td><span class="smaller_text"><a href="/discipline/edit_disciplinary_action/{{ action.0 }}">edit</a><td>
+				<td><span class="smaller_text">{{ action.0 }}</td>
+				<td><span class="smaller_text">{{ action.1 }}</td>
+				<td><span class="smaller_text">{{ action.2 }}</td>
+				<td><span class="smaller_text">{{ action.3 }}</td>
+				<td><span class="smaller_text">{{ action.4 }}</td>
+			</tr>
+		{% endfor %}
+		{% endif %}
+		
+	</table>
+</div>
+
+{% endblock %}
+
+
+    
+    

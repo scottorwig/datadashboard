@@ -1,0 +1,42 @@
+{% extends "base.html"  %}
+{% block title %} {{ head_title }} {% endblock %}
+<div class="wrapperdiv">
+{% block head %} {{ page_title }}{% endblock %}
+
+
+{% block content %}
+
+<div>
+    {% if time_list_with_count %}
+    <table class="centered">
+        <tr>
+            <td><span class="descriptive_text">time</span></td>
+            <td><span class="descriptive_text">Incidents</span></td>
+        </tr>
+        {% for time in time_list_with_count %}
+            <tr>
+                <td class="left_aligned"><a href="/discipline/view_incidents_time/{{ time.0 }}/">{{ time.0 }}</a></td>
+                <td>{{ time.1 }}</td>
+            </tr>
+        {% endfor %}
+    {% endif %}
+    </table>
+</div>
+</div>
+<script type="text/javascript">
+  google.load("visualization", "1", {packages:["barchart"]});
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Time');
+    data.addColumn('number', 'Incidents');
+    data.addRows({{ row_count }});
+    {{ google_setvalue|safe }}
+
+    var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+    chart.draw(data, {width: 600, height: 400, is3D: true, title: '{{ page_title }}'});
+  }
+</script>
+<p></p>
+<div id="chart_div" class="centered"></div>
+{% endblock %}

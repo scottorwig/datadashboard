@@ -1,0 +1,189 @@
+{% extends "base.html"  %}
+{% block title %} {{ head_title }} {% endblock %}
+<div class="wrapperdiv">
+
+{% block head %} {{ page_title }}{% endblock %}
+
+
+{% block content %}
+<div>
+	
+</div>
+<div class="instructional_text">
+	<p>{{ messageToUser }}</p>
+
+	<table summary="district summary" class="centered">
+	<tr>
+		<td></td>			
+		<td class="header_overview_cell">Model</td>
+		<td class="header_overview_cell">Redner</td>
+		<td class="header_overview_cell">Brick</td>
+		<td class="header_overview_cell">LMS</td>
+		<td class="header_overview_cell">LHS</td>
+		<td class="header_overview_cell">LMA</td>
+		<td class="header_overview_cell">Childs</td>	
+	</tr>
+	<tr>
+		<td style="text-align: right;">Incidents:</td>			
+		<td class="header_overview_cell">{{ entry_counts.0 }}</td>
+		<td class="header_overview_cell">{{ entry_counts.1  }}</td>
+		<td class="header_overview_cell">{{ entry_counts.2  }}</td>
+		<td class="header_overview_cell">{{ entry_counts.3 }}</td>
+		<td class="header_overview_cell">{{ entry_counts.4  }}</td>
+		<td class="header_overview_cell">{{ entry_counts.5  }}</td>
+		<td class="header_overview_cell">{{ entry_counts.6  }}</td>	
+	</tr>
+	<tr>
+		<td style="text-align: right;">Disciplinary Actions:</td>				
+		<td class="header_overview_cell">{{ entry_counts.7  }}</td>
+		<td class="header_overview_cell">{{ entry_counts.8  }}</td>
+		<td class="header_overview_cell">{{ entry_counts.9  }}</td>
+		<td class="header_overview_cell">{{ entry_counts.10  }}</td>
+		<td class="header_overview_cell">{{ entry_counts.11  }}</td>
+		<td class="header_overview_cell">{{ entry_counts.12  }}</td>
+		<td class="header_overview_cell">{{ entry_counts.13  }}</td>	
+	</tr>
+</table>
+
+</div>
+<div>
+
+
+        <div id="tabs">
+        <ul>
+	    <li><a href="#tabs-1">Search Data</a></li>            
+            <li><a href="#tabs-2">Add Data</a></li>
+            <li><a href="#tabs-3">Edit Data</a></li>
+	    <li><a href="#tabs-4">View Data</a></li>
+            <li><a href="#tabs-5">Report Data</a></li>
+            <li><a href="#tabs-6">Maintenance</a></li>
+	</ul>
+
+	<div id="tabs-1">
+            <table class="function_table">
+                <tr>
+                    <td class="function_cell">
+                        <form action="/discipline/view_incidents_student/" method="post">
+                            Find incidents for a student:<br>
+                            <input type="text" name="student" id="id_student">
+                            <button type="submit">Go</button>
+                        </form>
+                    </td>
+                    <td class="function_cell">
+                        <form action="/discipline/view_incidents_date/" method="post">
+                            Find incidents on a date (YYYY-MM-DD):<br>
+                            <input type="text" name="incident_date" id="incident_date">
+                            <button type="submit">Go</button>
+                        </form>
+                    </td>
+                    <td class="function_cell">
+                        <form action="/discipline/view_incidents_referrer/" method="post">
+                            Find incidents reported by staff:<br>
+                            <input type="text" name="referrer" id="referrer">
+                            <button type="submit">Go</button>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+           
+        </div>
+
+        <div id="tabs-2">
+            Because of the way this data is reported to the state, adding incidents from a PBIS form is a two-step process:
+            <ol>
+                <li><a href="/discipline/enter_incident/">Enter the data about the incident</a> itself, and </li>
+                <li>Add a student (or students) who were involved in the incident.</li>
+            </ol>
+        </div>    
+
+
+
+	<div id="tabs-3">
+            <hr>
+            <p>Edit one of the {{ incident_list|length }} existing incidents for {{ account.name }}:</p>
+            <table summary="incidents_table" cellspacing="10" class="smaller_text">
+                    <tr>
+                            <th><span class="smaller_text"><i>incident</i></span></th>
+                            <th><span class="smaller_text"><i>actions</i></span></th>
+			    <th><span class="smaller_text">Date</span></th>
+                            <th><span class="smaller_text">Referred By</span></th>
+			    <th><span class="smaller_text">Student</span></th>
+                            <th><span class="smaller_text">Description</span></th>
+                    </tr>
+                    {% for incident in incident_list %}
+                            <tr>
+                                <td><span class="smaller_text"><a href="/discipline/edit_incident/{{ incident.0 }}/">edit</a></span></td>
+                                <td><span class="smaller_text"><a href="/discipline/edit_disciplinary_action/{{ incident.1 }}/">edit</a></span></td>
+                                <td><span class="smaller_text">{{ incident.2 }}</span></td>
+				<td><span class="smaller_text">{{ incident.3 }}</span></td>
+                                <td><span class="smaller_text">{{ incident.4 }}</span></td>
+                                <td><span class="smaller_text">{{ incident.5|truncatewords:8 }}</span></td>
+                            </tr>
+                    {% endfor %}
+            </table>
+	</div>
+	<div id="tabs-4">
+                <h2>Data Views for {{ account.name }}</h2>
+                <ul>
+                    <li><a href="/discipline/incidents_by_student">Incidents by Student</a></li>
+                    <li><a href="/discipline/incidents_by_referrer">Incidents by Referrer</a></li>
+                    <li><a href="/discipline/incidents_by_location">Incidents by Location</a></li>
+                    <li><a href="/discipline/incidents_by_grade">Incidents by Grade</a></li>
+                    <li><a href="/discipline/incidents_by_month">Incidents by Month</a></li>
+                    <li><a href="/discipline/incidents_by_day_of_week">Incidents by Day of Week</a></li>
+                    <li><a href="/discipline/incidents_by_time">Incidents by Time</a></li>
+                    <li><a href="/discipline/rules_broken">Rules Broken</a></li>
+                    <li><a href="/discipline/major_problem_behaviors">Major Problem Behaviors</a></li>
+                    <li><a href="/discipline/minor_problem_behaviors">Minor Problem Behaviors</a></li>
+                </ul>
+            </div>
+            <div id="tabs-5">
+                <h2>Reports for {{ account.name }}</h2>
+                <ul>
+		    <li><a href="/discipline/pyramid_view">Pyramid view</a></li>
+		    <li><a href="/discipline/in_school_suspensions">In-School Suspensions</a></li>
+                    <li><a href="/discipline/out_school_suspensions">Out-of-School Suspensions</a></li>
+		    <li><a href="/discipline/in_school_suspensions_specialed">Special Education Eligible In-School Suspensions</a></li>
+		    <li><a href="/discipline/out_school_suspensions_specialed">Special Education Eligible Out-of-School Suspensions</a></li>
+		    <li><a href="/discipline/suspensions_specialed">Special Education Students Total Days Suspended</a></li>
+		    <li><a href="/discipline/generate_check_csv">Download district-wide CSV file to check</a></li>
+		    <!--<li><a href="/discipline/validation_summary">View possible data quality issues</a></li>-->
+		    <li><a href="/discipline/generate_srm_xml">Download Student Record Maintenance (SRM) XML file</a></li>
+                    
+                </ul>
+            </div>
+            
+            <div id="tabs-6">
+                <h2>Data maintenance functions:</h2>
+                <ul>
+                    <li><a href="/discipline/show_incidents_no_actions">Show incidents without disciplinary actions</a></li>
+		    <li><a href="/discipline/show_actions_no_incidents">Show disciplinary actions without incidents</a></li>
+		    <li><a href="/discipline/show_students_nonstandard_names">Show students with non-standard names</a></li>
+                </ul>
+            </div>
+
+        </div>
+<script type="text/javascript">
+    $(function() {
+    var studentList = [{{ studentdropdownstring|safe }}];
+    $("#id_student").autocomplete({source: studentList});
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+    $("#incident_date").datepicker( { dateFormat: 'yy-mm-dd' } );
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+    var staffList = [{{ staffdropdownstring|safe }}];
+    $("#referrer").autocomplete({source: staffList});
+    });
+</script>
+
+
+
+{% endblock %}
+
+</div>
+</div>

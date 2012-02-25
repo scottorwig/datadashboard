@@ -1,0 +1,48 @@
+{% extends "base.html"  %}
+{% block title %} {{ head_title }} {% endblock %}
+<div class="wrapperdiv">
+{% block head %} {{ page_title }}{% endblock %}
+{% block content %}
+
+<script type="text/javascript">
+    $(function() {
+    $("#id_event_date").datepicker();
+    });
+</script>
+
+<div>
+	{% if account %}
+		<div>
+                    You have successfully entered or edited a discipline incident for the date <b>{{ date|date:"m/d/Y" }}</b> into the BAIT PBIS discipline system.<br>
+                    This incident was given a state incident ID of <b>{{ mi_incident_id }}</b> in case it needs to be reported to the state.<br>
+                    The description entered for Incident ID {{ mi_incident_id }} was:<br>
+                    <b>{{ description }}</b>
+		</div>
+                <hr width="600">
+                <p></p>
+                {% if actions %}
+                <div>
+                    Incident ID {{ mi_incident_id}} has the following students with disciplinary actions associated with it:<br>
+                    <ol>
+                        {% for student in actions %}
+                        <li><a href="/discipline/view_incidents_student/{{ student.student }}/">{{ student.student }}</a> - <em><a href="/discipline/edit_disciplinary_action/{{ student.id }}/">Edit this disciplinary action</a></em></li>
+                        {% endfor %}
+                    </ol>
+                </div>
+                {% endif %}
+                Now you may:
+                <ul>
+                    <li><a href="/discipline/add_disciplinary_action/{{ mi_incident_id }}">Add a student and disciplinary action</a> to this incident</li>
+                    <li><a href="/discipline/enter_incident/">Enter another discipline incident</a> at {{ account.name }}</li>
+                    <li><a href="/discipline/" >Return to the main BAIT PBIS discipline page</a></li>
+                    <li><a href="/discipline/discipline_logout/">Log out</a> from {{ account.name }}</li>
+                </ul>
+	{% else %}
+		<form action="/discipline/" method="post">
+			Password:<br><input type="text" name="password" style="width:300px"><br>
+			<input type="submit" name="submit" value="Login" style="width:200px">		
+		</form>
+	{% endif %}
+{% endblock %}
+</div>
+</div>

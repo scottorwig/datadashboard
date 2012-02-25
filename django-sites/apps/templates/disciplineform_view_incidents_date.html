@@ -1,0 +1,43 @@
+{% extends "base.html"  %}
+{% block title %} {{ head_title }} {% endblock %}
+<div class="wrapperdiv">
+{% block head %} {{ page_title }}{% endblock %}
+
+
+{% block content %}
+<div class="instructional_text">
+	<p>{{ messageToUser }}</p>
+	<p/>
+	Logged into the {{ account.name }} account. | <a href="/discipline/enter_incident/">Enter incident.</a> | <a href="/discipline/">Back to main page</a> | <a href="/discipline/discipline_logout/">Log Out</a>
+</div>
+<div>
+    {% if lines_to_report %}
+        <table>
+            <tr>
+                <td class="padded_default">Incident ID</td>
+                <td class="padded_default">Referrer</td>
+                <td class="padded_default">Location</td>
+		<td class="padded_default">Student</td>
+		<td class="padded_default">Minor Behavior</td>
+		<td class="padded_default">Major Behavior</td>
+                <td class="padded_default">Description</td>
+            </tr>
+            {% for line in lines_to_report %}
+                <tr>
+                    <td class="padded_default"><a href="/discipline/referral_view/{{ line.0 }}">View</a></td>
+                    <td class="padded_default"><a href="/discipline/view_incidents_referrer/{{ line.1 }}">{{ line.1 }}</a></td>
+                    <td class="padded_default">{{ line.2 }}</td>
+		    <td class="padded_default">{{ line.3 }}</td>
+		    <td class="padded_default">{{ line.4 }}</td>
+		    <td class="padded_default">{{ line.5 }}</td>
+                    <td class="padded_default">{{ line.6|truncatewords:15 }}</td>
+                   
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+    <p>No incidents have been entered for the date {{ event_date }}</p>
+    {% endif %}
+</div>
+</div>
+{% endblock %}

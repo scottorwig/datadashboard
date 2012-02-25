@@ -1,0 +1,36 @@
+{% extends "base.html"  %}
+{% block title %} {{ head_title }} {% endblock %}
+<div class="wrapperdiv">
+{% block head %} {{ page_title }}{% endblock %}
+{% block content %}
+<div class="instructional_text">
+	<p>{{ messageToUser }}</p>
+	<p/>
+	{% if account  %}
+		You are logged into the {{ account.name }} building. | <a href="/discipline/discipline_logout/">Log Out</a>
+	{% else %}
+		Please return to the <a href="/discipline/" >login page</a> to log in.
+	{% endif %}
+
+</div>
+
+<div class="wrapperdiv">
+    Your data was <b>NOT</b> saved! The data contained validation error(s):
+    <ul>
+    {% for error in errors %}
+        <li><b>{{ error }}</b></li>
+    {% endfor %}
+    </ul>
+    Pressing the "Back" button on your browser may allow you to return to the data. If you believe there is a problem with this form, please contact Scott Orwig as soon as possible.
+
+    This was the data you submitted:
+    <ul>
+        {% for item in postdata %}
+            <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+{% endblock %}
+</div>

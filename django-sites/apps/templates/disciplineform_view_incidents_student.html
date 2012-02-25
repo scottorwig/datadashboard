@@ -1,0 +1,53 @@
+{% extends "base.html"  %}
+{% block title %} {{ head_title }} {% endblock %}
+<div class="wrapperdiv">
+{% block head %} {{ page_title }}{% endblock %}
+
+
+{% block content %}
+
+<div>
+	{% if is_special_ed_eligible %}
+	    <div class="instructional_text">{{ student_string }} is Special Ed eligible.</div>
+	{% endif %}
+        <table>
+            <tr>
+                <td class="padded_default"><span class="descriptive_text">Date</span></td>
+		<td class="padded_default"><span class="descriptive_text">Time</span></td>
+                <td class="padded_default"><span class="descriptive_text">Minor Behavior</span></td>
+                <td class="padded_default"><span class="descriptive_text">Major Behavior</span></td>
+                <td class="padded_default"><span class="descriptive_text">ISS</span></td>
+                <td class="padded_default"><span class="descriptive_text">OSS</span></td>
+                <td class="padded_default"><span class="descriptive_text">Detention</span></td>
+            </tr>
+            {% for behavior in behavior_list %}
+                <tr>
+                    <td class="padded_default"><a href="/discipline/referral_view/{{ behavior.0 }}/">{{ behavior.1 }}</a></td>
+                    <td class="padded_default">{{ behavior.2 }}</td>
+                    <td class="padded_default">{{ behavior.3 }}</td>
+		    <td class="padded_default">{{ behavior.4 }}</td>
+                    <td class="padded_default" align="center">{{ behavior.5 }}</td>
+                    <td class="padded_default" align="center">{{ behavior.6 }}</td>
+                    <td class="padded_default" align="center">{{ behavior.7 }}</td>
+                </tr>
+            {% endfor %}
+	    {% if actions %}
+		<tr>
+		    <td class="padded_default" colspan="3"></td>
+		    <td class="padded_default">------</td>
+		    <td class="padded_default">------</td>
+		    <td class="padded_default">------</td>
+		</tr>
+		<tr>
+		    <td class="padded_default" colspan="3">Totals</td>
+		    <td class="padded_default"><b>{{ iss_total }}</b></td>
+		    <td class="padded_default"><b>{{ oss_total }}</b></td>
+		    <td class="padded_default"><b>{{ detention_total }}</b></td>
+		</tr>
+	    {% endif %}
+        </table>
+</div>
+</div>
+{% endblock %}
+
+

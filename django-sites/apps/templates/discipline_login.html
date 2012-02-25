@@ -1,0 +1,22 @@
+{% extends "base.html"  %}
+{% block title %} {{ head_title }} {% endblock %}
+<div class="wrapperdiv">
+{% block head %} {{ page_title }}{% endblock %}
+{% block content %}
+
+
+<div class="instructional_text">
+	<p>{{ messageToUser }}</p>
+	<p/>
+	<form action="/discipline/login_submit/" method="post">
+			Password:<br><input type="text" name="password" style="width:300px"><br>
+			<input type="submit" name="submit" value="Login" style="width:200px">		
+	</form>
+</div>
+
+
+{% endblock %}
+
+
+    
+    

@@ -1,0 +1,43 @@
+{% extends "base.html"  %}
+{% block title %} {{ head_title }} {% endblock %}
+<div class="wrapperdiv">
+{% block head %} {{ page_title }}{% endblock %}
+
+
+{% block content %}
+
+<div class="instructional_text">
+	<p>{{ messageToUser }}</p>
+	<p/>
+	Logged into the {{ account.name }} account. | <a href="/discipline/enter_incident/">Enter incident.</a> | <a href="/discipline/">Back to main page</a> | <a href="/discipline/discipline_logout/">Log Out</a>
+</div>
+<div>
+	<div class="instructional_text">Sorry, there is no student identified as "{{ failed_student_name }}" in the BAIT system.</div>
+	{% if possible_count %}
+		<div class="instructional_text">{{ possible_count }} students were found who might match {{ failed_student_name }}:</div>
+	{% endif %}
+        <table>
+            <tr>
+                <th class="padded_default"><span class="descriptive_text">Student</span></td>
+                <th class="padded_default"><span class="descriptive_text">Grade</span></td>
+                <th class="padded_default"><span class="descriptive_text">Date of Birth</span></td>
+                <th class="padded_default"><span class="descriptive_text">Gender</span></td>
+                <th class="padded_default"><span class="descriptive_text">Ethnicity</span></td>
+            </tr>
+            {% for possibility in possible_students %}
+                <tr>
+                    <td class="padded_default"><a href="/discipline/view_incidents_student/{{ possibility.0 }}/">{{ possibility.0 }}</a></td>
+		    <td class="padded_default">{{ possibility.1 }}</td>
+		    <td class="padded_default">{{ possibility.2 }}</td>
+		    <td class="padded_default">{{ possibility.3 }}</td>
+		    <td class="padded_default">{{ possibility.4 }}</td>
+                    
+                </tr>
+            {% endfor %}
+	    
+        </table>
+</div>
+</div>
+{% endblock %}
+
+
