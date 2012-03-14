@@ -1657,6 +1657,13 @@ def generate_check_csv(request):
     
     consequences, consequences_time = list_of_consequences()
     
+    file_name = 'BAIT_csv_check_file_' + today_string + '.csv'
+    response = HttpResponse(mimetype='text/csv')
+    response['Content-Disposition'] = 'attachment; filename=' + file_name
+    writer = csv.writer(response)    
+    writer.writerow(['school', 'IncidentID', 'referrer', 'time', 'date', 'location','action_id','major_problem_behavior', 'minor_problem_behavior', 'student','iss_start''iss_end','iss_duration','oss_start','oss_end', 'oss_duration'])
+    
+
     counter = 0
     previous_student = 'first'
     for consequence in consequences:
@@ -1683,7 +1690,6 @@ def generate_check_csv(request):
             
             if report_this_action:
                 if previous_student != consequence['uic']:
-                    record = ET.SubElement(root,'StudentRecordMaintenance')
                 
                     current_line = consequence['uic'] + ','
                 
@@ -1726,7 +1732,7 @@ def generate_check_csv(request):
                     current_line = current_line + start_of_action_date + ','
                     
                 
-                csv_string = csv_string + current_line + '\n'
+                writer.writerow(current_line)
 
                 previous_student = consequence['uic']
 
@@ -1741,11 +1747,6 @@ def generate_check_csv(request):
     
     # discipline_incidents = Incident.objects.filter(event_date__gt = by_date)
     
-    # file_name = 'BAIT_csv_check_file_' + today_string + '.csv'
-    # response = HttpResponse(mimetype='text/csv')
-    # response['Content-Disposition'] = 'attachment; filename=' + file_name
-    # writer = csv.writer(response)    
-    # writer.writerow(['school', 'IncidentID', 'referrer', 'time', 'date', 'location','action_id','major_problem_behavior', 'minor_problem_behavior', 'student','iss_start''iss_end','iss_duration','oss_start','oss_end', 'oss_duration'])
     
     # for discipline_incident in discipline_incidents:
     #     associated_actions = DisciplineAction.objects.filter(mi_incident_id = discipline_incident.mi_incident_id)
