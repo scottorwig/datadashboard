@@ -1708,7 +1708,7 @@ def generate_check_csv(request):
                         current_line = current_line + ','
                     
                     try:
-                        current_line = current_line + consequence['grade'] = ','
+                        current_line = current_line + consequence['grade'] + ','
                     except:
                         current_line = current_line + ','
                     
