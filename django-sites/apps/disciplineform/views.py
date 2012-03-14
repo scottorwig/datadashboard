@@ -1700,7 +1700,7 @@ def generate_check_csv(request):
                         csv_last_name = ''
                     
                     try:
-                        csv_first_name consequence['student_first_name']
+                        csv_first_name = consequence['student_first_name']
                     except:
                         csv_first_name = ''
                     
