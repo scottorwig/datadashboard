@@ -1645,6 +1645,7 @@ def generate_srm_xml(request):
     return response
 
 def generate_check_csv(request):
+    # There are better ways to do this, but the goal is to replicate the XML process as closely as possible
     current_student = ''
     today_string = get_today_string()
     buildingLookup = {'4':'05235','004':'05235', '100':'05235','200':'07190','300':'02186','400':'05166','500':'02187','600':'00308','700':'09148', '800':'00405'}
@@ -1661,7 +1662,7 @@ def generate_check_csv(request):
     response = HttpResponse(mimetype='text/csv')
     response['Content-Disposition'] = 'attachment; filename=' + file_name
     writer = csv.writer(response)    
-    writer.writerow(['school', 'IncidentID', 'referrer', 'time', 'date', 'location','action_id','major_problem_behavior', 'minor_problem_behavior', 'student','iss_start''iss_end','iss_duration','oss_start','oss_end', 'oss_duration'])
+    writer.writerow(['uic','last_name','first_name', 'dob', 'school', 'grade', 'incident_id', 'event_date', 'disciplinary_action_code', 'length_of_action', 'start_of_action_date'])
     
 
     counter = 0
@@ -1691,127 +1692,52 @@ def generate_check_csv(request):
             if report_this_action:
                 if previous_student != consequence['uic']:
                 
-                    current_line = consequence['uic'] + ','
+                    csv_uic = consequence['uic'] + ','
                 
                     try:
-                        current_line = current_line + consequence['student_last_name'] + ','
+                        csv_last_name = consequence['student_last_name']
                     except:
-                        current_line = current_line + ','
+                        csv_last_name = ''
                     
                     try:
-                        current_line = current_line + consequence['student_first_name'] + ','
+                        csv_first_name consequence['student_first_name']
                     except:
-                        current_line = current_line + ','
+                        csv_first_name = ''
                     
                     try:
-                        current_line = current_line + consequence['date_of_birth'] + ','
+                        csv_dob = consequence['date_of_birth']
                     except:
-                        current_line = current_line + ','
+                        csv_dob = ''
                 
                     try:
-                        current_line = current_line + consequence['school_id'] + ','
+                        csv_school = consequence['school_id']
                     except:
-                        current_line = current_line + ','
+                        csv_school = ''
                     
                     try:
-                        current_line = current_line + consequence['grade'] + ','
+                        csv_grade = consequence['grade']
                     except:
-                        current_line = current_line + ','
+                        csv_grade = ''
                     
                 
                 if consequence['mi_incident_id'] not in reported_incidents:
                     reported_incidents.append(consequence['mi_incident_id'])
-                    current_line = current_line + consequence['mi_incident_id'] + ','
+                    csv_incident_id = consequence['mi_incident_id']
 
-                    current_line = current_line + str(consequence['event_date']) + ','
+                    csv_event_date = str(consequence['event_date'])
 
-                    current_line = current_line + disciplinary_action_code + ','
+                    current_line = current_line + disciplinary_action_code
 
                     current_line = current_line + length_of_action + ','
                     
                     current_line = current_line + start_of_action_date + ','
                     
                 
-                writer.writerow(current_line)
+                writer.writerow([csv_uic,csv_last_name,csv_first_name, csv_dob, csv_school, csv_grade, csv_incident_id, csv_event_date, disciplinary_action_code, length_of_action, start_of_action_date]])
 
                 previous_student = consequence['uic']
 
 
-    # debug_string = ''
-    # current_student = ''
-    # today = datetime.datetime.today()
-    # today_string = today.strftime('%Y-%m-%d_%H%M')
-
-    # # get the data
-    # by_date = '2010-09-01'
-    
-    # discipline_incidents = Incident.objects.filter(event_date__gt = by_date)
-    
-    
-    # for discipline_incident in discipline_incidents:
-    #     associated_actions = DisciplineAction.objects.filter(mi_incident_id = discipline_incident.mi_incident_id)
-    #     for action in associated_actions:
-    #         # Split the dropdown field into names and student number
-    #         student_full_string = action.student
-    #         split_student = student_full_string.split(',')
-    #         student_last_name = split_student[0]
-    #         try:
-    #             split_second_part = split_student[1].split('-')
-    #         except:
-    #             split_second_part = ''
-    #         try:
-    #             student_first_name = string.strip(split_second_part[0])
-    #         except:
-    #             student_first_name = ''
-    #         try:
-    #             current_student_number_dirty = split_second_part[1]
-    #             current_student_number = current_student_number_dirty.strip()
-    #         except:
-    #             current_student_number = ''
-    #             debug_string = debug_string + 'Student does not appear to have a student number'
-    #         try:
-    #             current_student = Student.objects.get(StudentNumber=current_student_number)
-    #         except:
-    #             debug_string = debug_string + "Couldn't find this student"
-
-    #         try:
-    #             iss_start = action.iss_start_date.strftime('%Y-%m-%d')
-    #         except:
-    #             iss_start = ''
-    #         try:
-    #             oss_start = action.oss_start_date.strftime('%Y-%m-%d')
-    #         except:
-    #             oss_start = ''
-                                
-    #         if current_student:
-    #             LastName = student_last_name
-    #             FirstName = student_first_name
-    #             DateOfBirth = current_student.date_of_birth
-    #             Gender = current_student.gender
-    #             StudentIdNumber = current_student_number
-    #             GradeOrSetting = current_student.grade
-    #             ExitStatus = current_student.exit_status
-    #             Ethnicity = ethnicityLookup[current_student.ethnicity]
-    #         else:
-    #             LastName = 'Student ' + student_full_string + ' not found'
-    #             FirstName = 'Tried student number: ' + current_student_number
-    #             DateOfBirth = ''
-    #             Gender = ''
-    #             StudentIdNumber = ''
-    #             GradeOrSetting = ''
-    #             ExitStatus = ''
-    #             Ethnicity = ''
-
-
-    #         # DisciplinaryIncident
-    #         IncidentID = discipline_incident.mi_incident_id
-    #         try:
-    #             DateOfIncident = discipline_incident.event_date.strftime('%Y-%m-%d')
-    #         except:
-    #             DateOfIncident = ''
-                
-    #         writer.writerow([discipline_incident.school_id, discipline_incident.mi_incident_id, discipline_incident.referrer,discipline_incident.event_time,discipline_incident.event_date,discipline_incident.location,action.id,action.problem_behaviors_minor,action.problem_behaviors_major,action.student,iss_start,action.iss_end_date,action.iss_number_days,oss_start,action.oss_end_date,action.oss_number_days])
-    
     return response
 
 
