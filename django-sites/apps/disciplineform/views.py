@@ -1733,7 +1733,7 @@ def generate_check_csv(request):
                     current_line = current_line + start_of_action_date + ','
                     
                 
-                writer.writerow([csv_uic,csv_last_name,csv_first_name, csv_dob, csv_school, csv_grade, csv_incident_id, csv_event_date, disciplinary_action_code, length_of_action, start_of_action_date]])
+                writer.writerow([csv_uic,csv_last_name,csv_first_name, csv_dob, csv_school, csv_grade, csv_incident_id, csv_event_date, disciplinary_action_code, length_of_action, start_of_action_date])
 
                 previous_student = consequence['uic']
 
