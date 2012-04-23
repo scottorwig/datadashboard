@@ -90,7 +90,6 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'apps.disciplineform',
     'apps.datadashboard',
-    'south',
 )
 
 EMAIL_HOST = config.get('django','email_host')
