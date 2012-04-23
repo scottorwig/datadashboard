@@ -1,0 +1,210 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12pt;
+}
+
+
+h1
+{
+	background-color: #3DABE3;
+	color: white;
+	text-align: center;
+}
+hr
+{
+	margin: 20px
+}
+input
+{
+	width:100px;
+}
+
+textarea
+{
+	width: 250px;
+}
+
+.wrapperdiv
+{
+	width: 700;
+}
+.centered
+{
+	text-align:center;
+	margin-right: 50px;
+	margin-left: 50px;
+	vertical-align: top;
+}
+
+
+.fieldnamecell
+{
+	font-weight: bold;
+	text-align: right;
+}
+
+.bodytext
+{
+	margin: 50px;
+	text-align: left;	
+}
+
+.instructional_text
+{
+	color: #362B36;
+	background-color: #F2F5F7;
+}
+
+.smaller_text
+{
+    font-size: 0.9em;
+}
+
+.footer
+{
+	font-size: 0.7em;
+	text-align:center;
+	color: #9C9C9C;
+}
+
+.inner box
+{
+	border-color: #353535;
+        border-width: thin;
+}
+.boxedinstructions
+{
+	margin: 50px 50px 50px 50px;
+	padding: 5px 5px 5px 5px;
+	border-style: solid;
+	border-width: medium;
+	border-color: #353535;
+}
+.warning
+{
+	color:red;
+}
+.field_title_cell
+{
+	text-align: right;
+}
+
+.padded
+{
+	padding-left: 15px;
+	padding-right: 15px;
+	text-align: center;
+}
+
+td.padded_default
+{
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+.commentfield
+{
+	width: 25%
+}
+.standardsgroup
+{
+	font-style: italic;
+	background-color: #CCCCCC;
+}
+
+
+input_cell
+{
+	width:25px;
+}
+input_smallint
+{
+	width: 24px;
+}
+.key_heading
+{
+	font-size: x-small;
+	text-align: center;
+}
+.key_table
+{
+	font-size: x-small;
+	background-color: #CCCCCC;
+}
+
+.header_overview_cell {
+	border-color: #3DABE3;
+	border-style: solid;
+	border-width: 1px;
+	font-size: 75%;
+	background-color: white;
+}
+
+.function_table
+{
+        border-spacing: 10px;
+}
+.function_cell {
+	border-color: #97a5b0;
+	border-style: solid;
+	border-width: 1px;
+        padding: 10px;
+}
+
+table
+{
+	text-align: left;
+	border-spacing: 12px 6px;
+}
+
+table.centered {margin-left:auto; margin-right:auto;}
+
+table.datagrid
+{
+
+}
+
+table.key_table
+{
+	background-color: #CCCCCC
+}
+
+.descriptive_text
+{
+    font-size: 0.9em;
+    line-height: 2em;
+    color: #9C9C9C;
+}
+
+.left_aligned
+{
+    text-align: left;
+}
+
+.datepicker {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 9pt;
+}
+
+#id_student
+{
+	width: 250px;
+}
+#id_referrer
+{
+	width: 250px;
+}
+#referrer
+{
+    width: 250px;
+}
+#id_description_of_incident
+{
+    width: 600px;
+}
+#long-submit-button
+{
+    width: 600px;
+}
