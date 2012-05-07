@@ -7,4 +7,10 @@ from models import *
 from forms import *
 
 def index(request):
-    return HttpResponse("This is the index page")
+    debug_string = ''
+    title = 'Welcome to the Data Dashboard'
+    return render_to_response('dash_home.html',
+                              {
+                                  'debug_string':debug_string,
+                                  'title': title,
+                              })

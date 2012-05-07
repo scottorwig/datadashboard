@@ -136,7 +136,7 @@ def get_location_list_with_count(buildingNumber, schoolyear=default_school_year)
 def list_of_consequences():
     ethnicityLookup = {'':'000010','W':'000010', 'WM':'000010', 'B':'001000', 'BM':'001000', 'I':'100000', 'IM':'100000', 'A':'010000','AM':'010000', 'H':'000001','HM':'000001', 'P':'000100', 'PM':'000100', 'F':'000100', 'FM':'000100',}
     start_time = time.time()
-    actions = DisciplineAction.objects.filter(school_year = '2011-2012').order_by('student')
+    actions = DisciplineAction.objects.filter(school_year = '2011-2012').order_by('school_id').order_by('student')
     list_of_consequences = []
     for action in actions:
         try:
@@ -167,7 +167,9 @@ def list_of_consequences():
             debug_string = debug_string + 'Error finding special_ed_eligible for ' + student_full_string + '. '
         
         try:
-            uic = current_student.UIC
+            uic_quotes_comma = current_student.UIC
+            uic_quotes = uic_quotes_comma.replace(',','')
+            uic = uic_quotes.replace('"','')
         except:
             uic = ''
             debug_string = debug_string + 'Error finding UIC for ' + student_full_string + '. '
@@ -304,7 +306,9 @@ def split_student_from_dropdown(student_full_string,debug_string=''):
         debug_string = debug_string + '*error splitting ' + student_full_string
     try:
         student_number_dirty = split_second_part[1]
-        student_number = student_number_dirty.strip()
+        student_number_quotes_comma = student_number_dirty.strip()
+        student_number_quotes = student_number_quotes_comma.replace(',','')
+        student_number = student_number_quotes.replace('"','')
     except:
         student_number = ''
         debug_string = debug_string + '*error getting number from ' + student_full_string
@@ -1662,7 +1666,7 @@ def generate_check_csv(request):
     response = HttpResponse(mimetype='text/csv')
     response['Content-Disposition'] = 'attachment; filename=' + file_name
     writer = csv.writer(response)    
-    writer.writerow(['uic','last_name','first_name', 'dob', 'school', 'grade', 'incident_id', 'event_date', 'disciplinary_action_code', 'length_of_action', 'start_of_action_date'])
+    writer.writerow(['uic','last name', 'first name', 'dob', 'school', 'grade', 'incident_id', 'event_date', 'minor behavior', 'major behavior', 'disciplinary_action_code', 'length_of_action', 'start_of_action_date'])
     
 
     counter = 0
@@ -1692,7 +1696,7 @@ def generate_check_csv(request):
             if report_this_action:
                 if previous_student != consequence['uic']:
                 
-                    csv_uic = consequence['uic'] + ','
+                    csv_uic = consequence['uic']
                 
                     try:
                         csv_last_name = consequence['student_last_name']
@@ -1726,14 +1730,25 @@ def generate_check_csv(request):
 
                     csv_event_date = str(consequence['event_date'])
 
-                    current_line = current_line + disciplinary_action_code
-
-                    current_line = current_line + length_of_action + ','
+                if disciplinary_action_code == '1':
+                    disciplinary_action = 'in-school suspension'
+                elif disciplinary_action_code == '2':
+                    disciplinary_action = 'out-of-school suspension'
+                else:
+                    disciplinary_action = ''
+                
+                try:
+                    problem_behavior_minor = consequence['problem_behavior_minor']
+                except:
+                    problem_behavior_minor = ''
                     
-                    current_line = current_line + start_of_action_date + ','
+                try:
+                    problem_behavior_major = consequence['problem_behavior_major']
+                except:
+                    problem_behavior_major = ''
                     
                 
-                writer.writerow([csv_uic,csv_last_name,csv_first_name, csv_dob, csv_school, csv_grade, csv_incident_id, csv_event_date, disciplinary_action_code, length_of_action, start_of_action_date])
+                writer.writerow([csv_uic, csv_last_name, csv_first_name, csv_dob, csv_school, csv_grade, csv_incident_id, csv_event_date, problem_behavior_minor, problem_behavior_major, disciplinary_action, length_of_action, start_of_action_date])
 
                 previous_student = consequence['uic']
 
