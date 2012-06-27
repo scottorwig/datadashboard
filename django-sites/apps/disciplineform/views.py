@@ -134,6 +134,7 @@ def get_location_list_with_count(buildingNumber, schoolyear=default_school_year)
 
 
 def list_of_consequences():
+    debug_string = ''
     ethnicityLookup = {'':'000010','W':'000010', 'WM':'000010', 'B':'001000', 'BM':'001000', 'I':'100000', 'IM':'100000', 'A':'010000','AM':'010000', 'H':'000001','HM':'000001', 'P':'000100', 'PM':'000100', 'F':'000100', 'FM':'000100',}
     start_time = time.time()
     actions = DisciplineAction.objects.filter(school_year = '2011-2012').order_by('school_id').order_by('student')
@@ -142,29 +143,30 @@ def list_of_consequences():
         try:
             associated_incident = Incident.objects.get(mi_incident_id = action.mi_incident_id)
         except:
-            debug_string = debug_string + 'Error finding Incident with mi_incident_id=' + action.mi_incident_id
+            debug_string = debug_string + 'error finding Incident with mi_incident_id=' + action.mi_incident_id + '\n'
             
-        debug_string = ''
         student_full_string = action.student
-        student_last_name, student_first_name, student_number, debug_string = split_student_from_dropdown(student_full_string, debug_string)
+        student_last_name, student_first_name, student_number, debug_string_from_split = split_student_from_dropdown(student_full_string)
+        debug_string = debug_string + debug_string_from_split
+        
         
         try:
             current_student = Student.objects.get(StudentNumber=student_number)
         except:
             current_student = '' # make sure we don't end up with a leftover student from the last loop
-            debug_string = debug_string + str(sys.exc_info()[0]) + 'for' + student_full_string + ' using the number -' + student_number + '-.'
+            debug_string = debug_string + str(sys.exc_info()[0]) + 'for student "' + student_full_string + '" using the number -' + student_number + '\n'
         
         try:
             school_id = current_student.school_id
         except:
             school_id = ''
-            debug_string = debug_string + 'Error finding school_id for ' + student_full_string + '. '
+            #debug_string = debug_string + 'error finding school_id for ' + student_full_string + '\n'
         
         try:
             special_ed_eligible = current_student.SpecialEdEligible
         except:
             special_ed_eligible = ''
-            debug_string = debug_string + 'Error finding special_ed_eligible for ' + student_full_string + '. '
+            #debug_string = debug_string + 'error finding special_ed_eligible for ' + student_full_string + '\n'
         
         try:
             uic_quotes_comma = current_student.UIC
@@ -172,82 +174,82 @@ def list_of_consequences():
             uic = uic_quotes.replace('"','')
         except:
             uic = ''
-            debug_string = debug_string + 'Error finding UIC for ' + student_full_string + '. '
+            #debug_string = debug_string + 'error finding UIC for ' + student_full_string + '\n'
         
         try:
             date_of_birth = current_student.date_of_birth
         except:
             date_of_birth = ''
-            debug_string = debug_string + 'Error finding UIC for ' + student_full_string + '. '
+            #debug_string = debug_string + 'error finding UIC for ' + student_full_string + '\n'
             
         try:
             gender = current_student.gender
         except:
             gender = ''
-            debug_string = debug_string + 'Error finding gender for ' + student_full_string + '. '
+            #debug_string = debug_string + 'error finding gender for ' + student_full_string + '\n'
             
         try:
             ethnicity = ethnicityLookup[current_student.ethnicity]
         except:
             ethnicity = ''
-            debug_string = debug_string + 'Error finding ethnicity for ' + student_full_string + '. '
+            #debug_string = debug_string + 'error finding ethnicity for ' + student_full_string + '\n'
         
         try:
             grade = current_student.grade.zfill(2)
         except:
             grade = ''
-            debug_string = debug_string + 'Error finding gender for ' + student_full_string + '. '
+            #debug_string = debug_string + 'error finding gender for ' + student_full_string + '\n'
             
         try:
             exit_status = current_student.exit_status
         except:
             exit_status = ''
-            debug_string = debug_string + 'Error finding exit status for ' + student_full_string + '. '
+            #debug_string = debug_string + 'error finding exit status for student "' + student_full_string + '"\n'
             
         try:
             entry_date = current_student.entry_date
         except:
             entry_date = ''
-            debug_string = debug_string + 'Error finding entry date for ' + student_full_string + '. '       
+            #debug_string = debug_string + 'error finding entry date for ' + student_full_string + '\n'      
         
         try:
             address = current_student.address
         except:
             address = ''
-            debug_string = debug_string + 'Error finding address for ' + student_full_string + '. '         
+            #debug_string = debug_string + 'error finding address for ' + student_full_string + '\n'        
  
         try:
             city = current_student.city
         except:
             city = ''
-            debug_string = debug_string + 'Error finding city for ' + student_full_string + '. '
+            #debug_string = debug_string + 'error finding city for ' + student_full_string + '\n'
             
         try:
             state = current_student.state
         except:
             state = ''
-            debug_string = debug_string + 'Error finding state for ' + student_full_string + '. '  
+            #debug_string = debug_string + 'error finding state for ' + student_full_string + '\n' 
             
         try:
             zip = current_student.zip
         except:
             zip = ''
-            debug_string = debug_string + 'Error finding zip for ' + student_full_string + '. '   
+            #debug_string = debug_string + 'error finding zip for ' + student_full_string + '\n'   
         
         try:
             iss_start = action.iss_start_date.strftime('%Y-%m-%d')
         except:
             iss_start = ''
-            debug_string = debug_string + 'Error getting iss_start for value' + str(action.iss_start_date)
+            #debug_string = debug_string + 'error getting iss_start for value' + str(action.iss_start_date) + '\n'
         
         try:
             oss_start = action.oss_start_date.strftime('%Y-%m-%d')
         except:
             oss_start = ''
-            debug_string = debug_string + 'Error getting oss_start for value' + str(action.oss_start_date)
+            #debug_string = debug_string + 'error getting oss_start for value' + str(action.oss_start_date) + '\n'
         
-        debug_string = debug_string + '-action.oss_start_date:' + str(action.oss_start_date) + ' with data type:' + str(type(action.oss_start_date))
-        debug_string = debug_string + '-action.iss_start_date:' + str(action.iss_start_date) + ' with data type:' + str(type(action.iss_start_date))
+        #debug_string = debug_string + '-action.oss_start_date:' + str(action.oss_start_date) + ' with data type:' + str(type(action.oss_start_date))
+        #debug_string = debug_string + '-action.iss_start_date:' + str(action.iss_start_date) + ' with data type:' + str(type(action.iss_start_date))
         
         list_of_consequences.append(
             {
@@ -285,12 +287,15 @@ def list_of_consequences():
                 'oss_start': oss_start,
                 'oss_end': action.oss_end_date,
                 'oss_days': action.oss_number_days,
-                'debug_string': debug_string
             })
     time_passed = time.time() - start_time
+    list_log_writer = open('/var/www/django-sites/apps/BoeAppUploads/errors_list_of_consequences.log','w')
+    list_log_writer.write(debug_string)
+    list_log_writer.close()
     return list_of_consequences, time_passed
 
-def split_student_from_dropdown(student_full_string,debug_string=''):
+def split_student_from_dropdown(student_full_string):
+    splitting_debug_string = ''
     split_student = student_full_string.split(',')
     student_last_name = split_student[0]
     try:
@@ -298,12 +303,14 @@ def split_student_from_dropdown(student_full_string,debug_string=''):
     except:
         split_second_part = ''
         student_first_name = ''
-        debug_string = debug_string + '*error splitting ' + student_full_string
+        splitting_debug_string = splitting_debug_string + 'error getting split_second_part of: ' + student_full_string + '\n'
+    
     try:
         student_first_name = string.strip(split_second_part[0])
     except:
         student_first_name = ''
-        debug_string = debug_string + '*error splitting ' + student_full_string
+        splitting_debug_string = splitting_debug_string + 'error getting first_name of: ' + student_full_string + '\n'
+    
     try:
         student_number_dirty = split_second_part[1]
         student_number_quotes_comma = student_number_dirty.strip()
@@ -311,16 +318,18 @@ def split_student_from_dropdown(student_full_string,debug_string=''):
         student_number = student_number_quotes.replace('"','')
     except:
         student_number = ''
-        debug_string = debug_string + '*error getting number from ' + student_full_string
-    return student_last_name, student_first_name, student_number, debug_string
+        splitting_debug_string = splitting_debug_string + 'error getting number from ' + student_full_string + '\n'
+    
+    return student_last_name, student_first_name, student_number, splitting_debug_string
 
-def calculate_action_length_for_reporting(consequence, debug_string=''):
+def calculate_action_length_for_reporting(consequence):
     # figure out DisciplinaryConsequence values
+    action_length_debug_string=''
     report_this_action = False
     if consequence['oss_days'] > .1:
         report_this_action = True
         disciplinary_action_code = '2' # 2 means OSS
-        debug_string = debug_string + "-consequence['oss_start']:" + str(consequence['oss_start']) + '-datatype:' + str(type(consequence['oss_start']))
+        #action_length_debug_string = action_length_debug_string + "consequence['oss_start']:" + str(consequence['oss_start']) + '-datatype:' + str(type(consequence['oss_start'])) + '\n'
         try:
             start_of_action_date = str(consequence['oss_start'])
         except:
@@ -330,26 +339,27 @@ def calculate_action_length_for_reporting(consequence, debug_string=''):
     elif consequence['iss_days'] > .1:
         report_this_action = True
         disciplinary_action_code = '1' # 1 means ISS
-        debug_string = debug_string + "-consequence['iss_start']:" + str(consequence['iss_start']) + '-datatype:' + str(type(consequence['iss_start']))
+        action_length_debug_string = action_length_debug_string + "consequence['iss_start']:" + str(consequence['iss_start']) + '-datatype:' + str(type(consequence['iss_start'])) + '\n'
         try:
             start_of_action_date = str(consequence['iss_start'])  #.strftime('%Y-%m-%d')
         except:
             start_of_action_date = ''
             report_this_action = False
         length_of_action_count = str(consequence['iss_days'])
-        debug_string = debug_string + "-consequence['iss_days']:" + str(consequence['iss_days']) + '-datatype:' + str(type(consequence['iss_days']))
-        debug_string = debug_string + '-length_of_action_count set to:' + length_of_action_count
+        #action_length_debug_string = action_length_debug_string + "consequence['iss_days']:" + str(consequence['iss_days']) + '-datatype:' + str(type(consequence['iss_days'])) + '\n'
+        #action_length_debug_string = action_length_debug_string + 'length_of_action_count set to:' + str(length_of_action_count) + '\n'
     else:
         report_this_action = False
         disciplinary_action_code = 'x'
         start_of_action_date = ''
         length_of_action_count = ''
+        #action_length_debug_string = action_length_debug_string + 'length_of_action_count set to blank' + '\n'
     # Here comes an embarrassing series of 'if' statements
     # There MUST be a way to do this mathematically but I'm out of time
     if length_of_action_count == 'None':
         report_this_action = False
     if length_of_action_count == '0.08' or length_of_action_count == '0.17' or length_of_action_count == '0.25' or length_of_action_count == '0.33' or length_of_action_count == '0.43':
-        length_of_action_count = '0.5'
+        length_of_action_count = '0.0'
     if length_of_action_count == '0.67' or length_of_action_count == '0.75' or length_of_action_count == '0.83' or length_of_action_count == '0.84':
         length_of_action_count = '1.0'
     if length_of_action_count == '1.17' or length_of_action_count == '1.33' or length_of_action_count=='1.25':
@@ -368,11 +378,13 @@ def calculate_action_length_for_reporting(consequence, debug_string=''):
             state_incident_code = incident_type_lookup['consequence.problem_behavior_minor']
         except:
             state_incident_code = '56'
+            action_length_debug_string = action_length_debug_string + 'state incident code not found for minor behavior "' +  consequence['problem_behavior_minor'] + '"\n'
     elif consequence['problem_behavior_major']:
         try:
             state_incident_code = incident_type_lookup['consequence.problem_behavior_major']
         except:
             state_incident_code = '56'
+            action_length_debug_string = action_length_debug_string + 'state incident code not found for major behavior "' +  consequence['problem_behavior_major'] + '"\n'
     else:
         state_incident_code = '56'
     # get location when needed
@@ -385,7 +397,10 @@ def calculate_action_length_for_reporting(consequence, debug_string=''):
             reporting_location = '2'
         else:
             reporting_location = '1'
-    return report_this_action, disciplinary_action_code, start_of_action_date, length_of_action_count, state_incident_code, reporting_location, debug_string
+    log_writer = open('/var/www/django-sites/apps/BoeAppUploads/errors_calculate_action_length_for_reporting.log','a')
+    log_writer.write(action_length_debug_string)
+    log_writer.close()    
+    return report_this_action, disciplinary_action_code, start_of_action_date, length_of_action_count, state_incident_code, reporting_location, action_length_debug_string
 
 # Filters for validation checks
 def has_no_student(items):
@@ -1467,186 +1482,88 @@ def referral_view(request, mi_incident_id):
                               })
     
 
-def generate_srm_xml(request):
-    current_student = ''
-    today_string = get_today_string()
-    buildingLookup = {'4':'05235','004':'05235', '100':'05235','200':'07190','300':'02186','400':'05166','500':'02187','600':'00308','700':'09148', '800':'00405'}
+#def generate_srm_xml(request):
+    #current_student = ''
+    #today_string = get_today_string()
+    #buildingLookup = {'4':'05235','004':'05235', '100':'05235','200':'07190','300':'02186','400':'05166','500':'02187','600':'00308','700':'09148', '800':'00405'}
 
 
-    # get the data
-    by_date = '2011-06-01'
-    today = datetime.date.today()
-    reported_incidents = []
-    attribute_dictionary = {'SchemaVersionMinor': '1', 'SubmittingSystemVersion': '1.0', 'CollectionName': 'StudentRecordMaintenance', 'SubmittingSystemVendor': 'ScottOrwig', 'CollectionId': '124', 'SchemaVersionMajor': '2011-2012', 'SubmittingSystemName': 'BAIT', 'xsi:noNamespaceSchemaLocation': 'http://cepi.state.mi.us/msdsxml/StudentRecordMaintenance2011-20121.xsd', 'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance'}
+    ## get the data
+    #by_date = '2011-06-01'
+    #today = datetime.date.today()
+    #reported_incidents = []
+    #attribute_dictionary = {'SchemaVersionMinor': '1', 'SubmittingSystemVersion': '1.0', 'CollectionName': 'StudentRecordMaintenance', 'SubmittingSystemVendor': 'ScottOrwig', 'CollectionId': '124', 'SchemaVersionMajor': '2011-2012', 'SubmittingSystemName': 'BAIT', 'xsi:noNamespaceSchemaLocation': 'http://cepi.state.mi.us/msdsxml/StudentRecordMaintenance2011-20121.xsd', 'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance'}
 
-    root = ET.Element('StudentRecordMaintenanceGroup', attribute_dictionary)
+    #root = ET.Element('StudentRecordMaintenanceGroup', attribute_dictionary)
     
-    consequences, consequences_time = list_of_consequences()
+    #consequences, consequences_time = list_of_consequences()
     
-    counter = 0
-    previous_student = 'first'
-    for consequence in consequences:
-        debug_string = ''
-        # we only report when the action involved ISS, OSS, or similar that was greater than .5 days
-        if consequence['iss_days'] > .5 or consequence['oss_days']  > .5 or 1==1:
-            report_this_action, disciplinary_action_code, start_of_action_date, length_of_action, state_incident_code, reporting_location, debug_string = calculate_action_length_for_reporting(consequence, debug_string)
-            # get time when needed
-            if state_incident_code in types_needing_time:
-                if consequence['mi_time_of_incident'] != 'During school hours':
-                    reporting_time = '2'
-                else:
-                    reporting_time = '1'
-            else:
-                reporting_time = ''  
+    #counter = 0
+    #previous_student = 'first'
+    #for consequence in consequences:
+        #debug_string = ''
+        ## we only report when the action involved ISS, OSS, or similar that was greater than .5 days
+        #if consequence['iss_days'] > .5 or consequence['oss_days']  > .5 or 1==1:
+            #report_this_action, disciplinary_action_code, start_of_action_date, length_of_action, state_incident_code, reporting_location, debug_string = calculate_action_length_for_reporting(consequence)
+            ## get time when needed
+            #if state_incident_code in types_needing_time:
+                #if consequence['mi_time_of_incident'] != 'During school hours':
+                    #reporting_time = '2'
+                #else:
+                    #reporting_time = '1'
+            #else:
+                #reporting_time = ''  
                 
             
-            debug_string_to_write = debug_string #+ consequence['debug_string'] + '-iss_days:' + str(consequence['iss_days']) + '-type:' + str(type(consequence['iss_days'])) + '-oss_days:' + str(consequence['oss_days'])+ '-type:' + str(type(consequence['oss_days'])) 
-            if consequence['uic'] == '':
-                report_this_action = False
-                # means the student was not found
-            if start_of_action_date == '':
-                report_this_action = False
+            #debug_string_to_write = debug_string #+ consequence['debug_string'] + '-iss_days:' + str(consequence['iss_days']) + '-type:' + str(type(consequence['iss_days'])) + '-oss_days:' + str(consequence['oss_days'])+ '-type:' + str(type(consequence['oss_days'])) 
+            #if consequence['uic'] == '':
+                #report_this_action = False
+                ## means the student was not found
+            #if start_of_action_date == '':
+                #report_this_action = False
             
-            if report_this_action:
-                if previous_student != consequence['uic']:
-                    record = ET.SubElement(root,'StudentRecordMaintenance')
+            #if report_this_action:
+                #if previous_student != consequence['uic']:
+                    #
                 
-                    submittingEntity = ET.SubElement(record, 'SubmittingEntity')
-                    entityTypeCode = ET.SubElement(submittingEntity,'SubmittingEntityTypeCode')
-                    entityTypeCode.text = 'D'
-                    entityCode = ET.SubElement(submittingEntity, 'SubmittingEntityCode')
-                    entityCode.text = '81070'
+                    #
                 
-                    personal_core = ET.SubElement(record, 'PersonalCore')
-                    ##student_from_bait = ET.SubElement(personal_core,'StudentFromBAIT')
-                    ##student_from_bait.text = student_full_string
-                    uic_element = ET.SubElement(personal_core,'UIC')
-                    uic_element.text = consequence['uic']
-                    last_name = ET.SubElement(personal_core,'LastName')
-                    try:
-                        last_name.text = consequence['student_last_name']
-                    except:
-                        last_name.text = ''
-                    first_name = ET.SubElement(personal_core,'FirstName')
-                    try:
-                        first_name.text = consequence['student_first_name']
-                    except:
-                        first_name.text = ''
-                    date_of_birth = ET.SubElement(personal_core, 'DateOfBirth')
-                    try:
-                        date_of_birth.text = consequence['date_of_birth']
-                    except:
-                        date_of_birth.text = str(sys.exc_info()[0])
-                    gender = ET.SubElement(personal_core, 'Gender')
-                    try:
-                        gender.text = consequence['gender']
-                    except:
-                        gender.text = ''
+                    #
                 
-                    student_record_maintenance = ET.SubElement(record, 'StudentRecordMaintenance')
-                    as_of_date = ET.SubElement(student_record_maintenance, 'AsOfDate')
-                    as_of_date.text = '2012-01-10'
-                
-                    try:
-                        school_id_state = buildingLookup[consequence['school_id']]
-                    except:
-                        school_id_state = 'error looking up:' + consequence['school_id']
-                    
-                    school_demographics = ET.SubElement(record, 'SchoolDemographics')
-                    operating_isd_esa_number = ET.SubElement(school_demographics, 'OperatingISDESANumber')
-                    operating_isd_esa_number.text = '81'
-                    operating_district_number = ET.SubElement(school_demographics, 'OperatingDistrictNumber')
-                    operating_district_number.text = '81070'
-                    school_facility_number = ET.SubElement(school_demographics,'SchoolFacilityNumber')
-                    school_facility_number.text = school_id_state
-                    grade_or_setting = ET.SubElement(school_demographics, 'GradeOrSetting')
-                    try:
-                        grade_or_setting.text = consequence['grade']
-                    except:
-                        grade_or_setting.text = ''
-                    
-                    personal_demographics = ET.SubElement(record, 'PersonalDemographics')
-                    resident_lea_number = ET.SubElement(personal_demographics, 'ResidentLEANumber')
-                    resident_lea_number.text = '81070'
-                    street_address = ET.SubElement(personal_demographics, 'StreetAddress')
-                    try:
-                        street_address.text = consequence['address']
-                    except:
-                        street_address.text = ''
-                    personal_demographics_city = ET.SubElement(personal_demographics, 'PersonalDemographicsCity')
-                    try:
-                        personal_demographics_city.text = consequence['city']
-                    except:
-                        personal_demographics_city.text = ''
-                    state = ET.SubElement(personal_demographics, 'State')
-                    try:
-                        state.text = consequence['state']
-                    except:
-                        state.text = ''
-                    zip_code = ET.SubElement(personal_demographics, 'ZipCode')
-                    try:
-                        zip_code.text = consequence['zip']
-                    except:
-                        zip_code.text = ''
-                    
-                    
-                    ethnicity = ET.SubElement(personal_demographics, 'Ethnicity')
-                    try:
-                        ethnicity.text = consequence['ethnicity']
-                    except:
-                        ethnicity.text = ''
-                    
-                    enrollment = ET.SubElement(record, 'Enrollment')
-                    enrollment_date = ET.SubElement(enrollment, 'EnrollmentDate')
-                    try:
-                        enrollment_date.text = consequence['entry_date']
-                    except:
-                        enrollment_date.text = ''
-                    exit_status = ET.SubElement(enrollment, 'ExitStatus')
-                    exit_status.text = '19'
-                    
-                    membership = ET.SubElement(record, 'Membership')
-                    student_residency = ET.SubElement(membership, 'StudentResidency')
-                    student_residency.text = '14'
                     
                 
-                if consequence['mi_incident_id'] not in reported_incidents:
-                    reported_incidents.append(consequence['mi_incident_id'])
-                    discipline_element = ET.SubElement(record, 'Discipline')
-                    incident_id = ET.SubElement(discipline_element, 'IncidentID')
-                    incident_id.text = consequence['mi_incident_id']
-                    date_of_incident = ET.SubElement(discipline_element, 'DateOfIncident')
-                    date_of_incident.text = str(consequence['event_date'])
-                    incident_type = ET.SubElement(discipline_element, 'IncidentType')
-                    incident_type.text = state_incident_code
-                    initial_consequence_type = ET.SubElement(discipline_element, 'InitialConsequenceType')
-                    initial_consequence_type.text = disciplinary_action_code
-                    initial_days = ET.SubElement(discipline_element, 'InitialDays')
-                    initial_days.text = length_of_action
-                    initial_start_date = ET.SubElement(discipline_element, 'InitialStartDate')
-                    initial_start_date.text = start_of_action_date
+                    #try:
+                        #school_id_state = buildingLookup[consequence['school_id']]
+                    #except:
+                        #school_id_state = 'error looking up:' + consequence['school_id']
                     
-                    #if reporting_location:
-                        #location_of_incident = ET.SubElement(discipline_element, 'LocationOfIncident')
-                        #location_of_incident.text = reporting_location
-                    #if reporting_time:
-                        #time_of_incident = ET.SubElement(discipline_element, 'TimeOfIncident')
-                        #time_of_incident.text = reporting_time
+
+                
+                #if consequence['mi_incident_id'] not in reported_incidents:
+                    #reported_incidents.append(consequence['mi_incident_id'])
+                    
+                    
+                    ##if reporting_location:
+                        ##location_of_incident = ET.SubElement(discipline_element, 'LocationOfIncident')
+                        ##location_of_incident.text = reporting_location
+                    ##if reporting_time:
+                        ##time_of_incident = ET.SubElement(discipline_element, 'TimeOfIncident')
+                        ##time_of_incident.text = reporting_time
          
-                #debug_data = ET.SubElement(record, 'DebugData')
-                #debug_information = ET.SubElement(debug_data, 'DebugString')
-                #debug_information.text = debug_string_to_write
+                ##debug_data = ET.SubElement(record, 'DebugData')
+                ##debug_information = ET.SubElement(debug_data, 'DebugString')
+                ##debug_information.text = debug_string_to_write
                 
-                previous_student = consequence['uic']
+                #previous_student = consequence['uic']
                 
     
-    # assemble the actual response to send to the user via attachment
-    file_name = 'student_record_maintenance_discipline_' + today_string + '.xml'
-    response = HttpResponse(mimetype='application/xml')
-    response['Content-Disposition'] = 'attachment; filename=' + file_name
-    tree = ET.ElementTree(root)
-    tree.write(response)
-    return response
+    ## assemble the actual response to send to the user via attachment
+    #file_name = 'student_record_maintenance_discipline_' + today_string + '.xml'
+    #response = HttpResponse(mimetype='application/xml')
+    #response['Content-Disposition'] = 'attachment; filename=' + file_name
+    #tree = ET.ElementTree(root)
+    #tree.write(response)
+    #return response
 
 def generate_check_csv(request):
     # There are better ways to do this, but the goal is to replicate the XML process as closely as possible
@@ -1654,11 +1571,9 @@ def generate_check_csv(request):
     today_string = get_today_string()
     buildingLookup = {'4':'05235','004':'05235', '100':'05235','200':'07190','300':'02186','400':'05166','500':'02187','600':'00308','700':'09148', '800':'00405'}
 
-
     # get the data
     by_date = '2011-06-01'
     today = datetime.date.today()
-    reported_incidents = []
     
     consequences, consequences_time = list_of_consequences()
     
@@ -1667,15 +1582,13 @@ def generate_check_csv(request):
     response['Content-Disposition'] = 'attachment; filename=' + file_name
     writer = csv.writer(response)    
     writer.writerow(['uic','last name', 'first name', 'dob', 'school', 'grade', 'incident_id', 'event_date', 'minor behavior', 'major behavior', 'disciplinary_action_code', 'length_of_action', 'start_of_action_date'])
-    
-
     counter = 0
     previous_student = 'first'
     for consequence in consequences:
         debug_string = ''
         # we only report when the action involved ISS, OSS, or similar that was greater than .5 days
         if consequence['iss_days'] > .5 or consequence['oss_days']  > .5 or 1==1:
-            report_this_action, disciplinary_action_code, start_of_action_date, length_of_action, state_incident_code, reporting_location, debug_string = calculate_action_length_for_reporting(consequence, debug_string)
+            report_this_action, disciplinary_action_code, start_of_action_date, length_of_action, state_incident_code, reporting_location, debug_string = calculate_action_length_for_reporting(consequence)
             # get time when needed
             if state_incident_code in types_needing_time:
                 if consequence['mi_time_of_incident'] != 'During school hours':
@@ -1685,7 +1598,6 @@ def generate_check_csv(request):
             else:
                 reporting_time = ''  
                 
-            
             debug_string_to_write = debug_string #+ consequence['debug_string'] + '-iss_days:' + str(consequence['iss_days']) + '-type:' + str(type(consequence['iss_days'])) + '-oss_days:' + str(consequence['oss_days'])+ '-type:' + str(type(consequence['oss_days'])) 
             if consequence['uic'] == '':
                 report_this_action = False
@@ -1694,41 +1606,37 @@ def generate_check_csv(request):
                 report_this_action = False
             
             if report_this_action:
-                if previous_student != consequence['uic']:
                 
-                    csv_uic = consequence['uic']
+                csv_uic = consequence['uic']
+            
+                try:
+                    csv_last_name = consequence['student_last_name']
+                except:
+                    csv_last_name = ''
                 
-                    try:
-                        csv_last_name = consequence['student_last_name']
-                    except:
-                        csv_last_name = ''
-                    
-                    try:
-                        csv_first_name = consequence['student_first_name']
-                    except:
-                        csv_first_name = ''
-                    
-                    try:
-                        csv_dob = consequence['date_of_birth']
-                    except:
-                        csv_dob = ''
+                try:
+                    csv_first_name = consequence['student_first_name']
+                except:
+                    csv_first_name = ''
                 
-                    try:
-                        csv_school = consequence['school_id']
-                    except:
-                        csv_school = ''
-                    
-                    try:
-                        csv_grade = consequence['grade']
-                    except:
-                        csv_grade = ''
-                    
+                try:
+                    csv_dob = consequence['date_of_birth']
+                except:
+                    csv_dob = ''
+            
+                try:
+                    csv_school = consequence['school_id']
+                except:
+                    csv_school = ''
                 
-                if consequence['mi_incident_id'] not in reported_incidents:
-                    reported_incidents.append(consequence['mi_incident_id'])
-                    csv_incident_id = consequence['mi_incident_id']
+                try:
+                    csv_grade = consequence['grade']
+                except:
+                    csv_grade = ''
+                
+                csv_incident_id = consequence['mi_incident_id']
 
-                    csv_event_date = str(consequence['event_date'])
+                csv_event_date = str(consequence['event_date'])
 
                 if disciplinary_action_code == '1':
                     disciplinary_action = 'in-school suspension'
@@ -1745,16 +1653,190 @@ def generate_check_csv(request):
                 try:
                     problem_behavior_major = consequence['problem_behavior_major']
                 except:
-                    problem_behavior_major = ''
-                    
+                    problem_behavior_major = ''           
                 
                 writer.writerow([csv_uic, csv_last_name, csv_first_name, csv_dob, csv_school, csv_grade, csv_incident_id, csv_event_date, problem_behavior_minor, problem_behavior_major, disciplinary_action, length_of_action, start_of_action_date])
-
-                previous_student = consequence['uic']
-
-
     return response
 
+def generate_srm_xml(request):
+    current_student = ''
+    today_string = get_today_string()
+    building_lookup = {'4':'05235','004':'05235', '100':'05235','200':'07190','300':'02186','400':'05166','500':'02187','600':'00308','700':'09148', '800':'00405'}
+    attribute_dictionary = {'SchemaVersionMinor': '1', 'SubmittingSystemVersion': '1.0', 'CollectionName': 'StudentRecordMaintenance', 'SubmittingSystemVendor': 'ScottOrwig', 'CollectionId': '124', 'SchemaVersionMajor': '2011-2012', 'SubmittingSystemName': 'BAIT', 'xsi:noNamespaceSchemaLocation': 'http://cepi.state.mi.us/msdsxml/StudentRecordMaintenance2011-20121.xsd', 'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance'}
+    
+    root = ET.Element('StudentRecordMaintenanceGroup', attribute_dictionary)
+    
+    # get the data
+    by_date = '2011-06-01'
+    today = datetime.date.today()
+    
+    consequences, consequences_time = list_of_consequences()    
+    
+    for consequence in consequences:
+        debug_string = ''
+        # we only report when the action involved ISS, OSS, or similar that was greater than .5 days
+        if consequence['iss_days'] > .5 or consequence['oss_days']  > .5 or 1==1:
+            report_this_action, disciplinary_action_code, start_of_action_date, length_of_action, state_incident_code, reporting_location, debug_string = calculate_action_length_for_reporting(consequence)
+            # get time when needed
+            if state_incident_code in types_needing_time:
+                if consequence['mi_time_of_incident'] != 'During school hours':
+                    reporting_time = '2'
+                else:
+                    reporting_time = '1'
+            else:
+                reporting_time = ''  
+                
+            debug_string_to_write = debug_string #+ consequence['debug_string'] + '-iss_days:' + str(consequence['iss_days']) + '-type:' + str(type(consequence['iss_days'])) + '-oss_days:' + str(consequence['oss_days'])+ '-type:' + str(type(consequence['oss_days'])) 
+            if consequence['uic'] == '':
+                report_this_action = False
+                # means the student was not found
+            if start_of_action_date == '':
+                report_this_action = False
+            
+            if report_this_action and length_of_action != '0.0':
+                uic = consequence['uic']
+                try:
+                    last_name = consequence['student_last_name']
+                except:
+                    last_name = ''
+                try:
+                    csv_first_name = consequence['student_first_name']
+                except:
+                    csv_first_name = ''
+                try:
+                    csv_dob = consequence['date_of_birth']
+                except:
+                    csv_dob = ''
+                try:
+                    gender = consequence['gender']
+                except:
+                    gender = 'M'
+                try:
+                    csv_school = consequence['school_id']
+                except:
+                    csv_school = ''
+                try:
+                    csv_grade = consequence['grade']
+                except:
+                    csv_grade = ''
+                csv_incident_id = consequence['mi_incident_id']
+                csv_event_date = str(consequence['event_date'])
+                if disciplinary_action_code == '1':
+                    disciplinary_action = 'in-school suspension'
+                elif disciplinary_action_code == '2':
+                    disciplinary_action = 'out-of-school suspension'
+                else:
+                    disciplinary_action = ''
+                try:
+                    problem_behavior_minor = consequence['problem_behavior_minor']
+                except:
+                    problem_behavior_minor = ''
+                try:
+                    problem_behavior_major = consequence['problem_behavior_major']
+                except:
+                    problem_behavior_major = ''      
+                #BUILD THE XML #################################################
+                record = ET.SubElement(root,'StudentRecordMaintenance')
+                
+                submittingEntity = ET.SubElement(record, 'SubmittingEntity')
+                entityTypeCode = ET.SubElement(submittingEntity,'SubmittingEntityTypeCode')
+                entityTypeCode.text = 'D'
+                entityCode = ET.SubElement(submittingEntity, 'SubmittingEntityCode')
+                entityCode.text = '81070'   
+                
+                personal_core = ET.SubElement(record, 'PersonalCore')
+                uic_element = ET.SubElement(personal_core,'UIC')
+                uic_element.text = uic
+                last_name_element = ET.SubElement(personal_core,'LastName')
+                last_name_element.text = last_name
+                first_name = ET.SubElement(personal_core,'FirstName')
+                first_name.text = csv_first_name
+                date_of_birth = ET.SubElement(personal_core, 'DateOfBirth')
+                date_of_birth.text = csv_dob
+                gender_element = ET.SubElement(personal_core, 'Gender')
+                gender_element.text = gender
+                
+                student_record_maintenance = ET.SubElement(record, 'StudentRecordMaintenance')
+                as_of_date = ET.SubElement(student_record_maintenance, 'AsOfDate')
+                as_of_date.text = '2012-06-25'
+                
+                school_demographics = ET.SubElement(record, 'SchoolDemographics')
+                operating_isd_esa_number = ET.SubElement(school_demographics, 'OperatingISDESANumber')
+                operating_isd_esa_number.text = '81'
+                operating_district_number = ET.SubElement(school_demographics, 'OperatingDistrictNumber')
+                operating_district_number.text = '81070'
+                school_facility_number = ET.SubElement(school_demographics,'SchoolFacilityNumber')
+                school_facility_number.text = building_lookup[csv_school]
+                grade_or_setting = ET.SubElement(school_demographics, 'GradeOrSetting')
+                grade_or_setting.text = csv_grade
+                
+                personal_demographics = ET.SubElement(record, 'PersonalDemographics')
+                resident_lea_number = ET.SubElement(personal_demographics, 'ResidentLEANumber')
+                resident_lea_number.text = '81070'
+                street_address = ET.SubElement(personal_demographics, 'StreetAddress')
+                try:
+                    street_address.text = consequence['address']
+                except:
+                    street_address.text = ''
+                personal_demographics_city = ET.SubElement(personal_demographics, 'PersonalDemographicsCity')
+                try:
+                    personal_demographics_city.text = consequence['city']
+                except:
+                    personal_demographics_city.text = ''
+                state = ET.SubElement(personal_demographics, 'State')
+                try:
+                    state.text = consequence['state']
+                    if state.text == 'Mi':
+                        state.text = 'MI'
+                except:
+                    state.text = ''
+                zip_code = ET.SubElement(personal_demographics, 'ZipCode')
+                try:
+                    zip_code.text = consequence['zip']
+                except:
+                    zip_code.text = ''
+                ethnicity = ET.SubElement(personal_demographics, 'Ethnicity')
+                try:
+                    ethnicity.text = consequence['ethnicity']
+                except:
+                    ethnicity.text = ''     
+                    
+                enrollment = ET.SubElement(record, 'Enrollment')
+                enrollment_date = ET.SubElement(enrollment, 'EnrollmentDate')
+                try:
+                    enrollment_date.text = consequence['entry_date']
+                except:
+                    enrollment_date.text = ''
+                exit_status = ET.SubElement(enrollment, 'ExitStatus')
+                exit_status.text = '19'
+                
+                membership = ET.SubElement(record, 'Membership')
+                student_residency = ET.SubElement(membership, 'StudentResidency')
+                student_residency.text = '14'
+                
+                discipline_element = ET.SubElement(record, 'Discipline')
+                incident_id = ET.SubElement(discipline_element, 'IncidentID')
+                incident_id.text = csv_incident_id
+                date_of_incident = ET.SubElement(discipline_element, 'DateOfIncident')
+                date_of_incident.text = str(consequence['event_date'])
+                incident_type = ET.SubElement(discipline_element, 'IncidentType')
+                incident_type.text = state_incident_code
+                initial_consequence_type = ET.SubElement(discipline_element, 'InitialConsequenceType')
+                initial_consequence_type.text = disciplinary_action_code
+                initial_days = ET.SubElement(discipline_element, 'InitialDays')
+                initial_days.text = length_of_action
+                initial_start_date = ET.SubElement(discipline_element, 'InitialStartDate')
+                initial_start_date.text = start_of_action_date                
+
+                
+    ######
+    # send the file to the user
+    file_name = 'student_record_maintenance_discipline_' + today_string + '.xml'
+    response = HttpResponse(mimetype='application/xml')
+    response['Content-Disposition'] = 'attachment; filename=' + file_name
+    tree = ET.ElementTree(root)
+    tree.write(response)
+    return response    
 
 
 def validation_summary(request):

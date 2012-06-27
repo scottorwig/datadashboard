@@ -6,7 +6,7 @@ body {
 
 h1
 {
-	background-color: #3DABE3;
+	background-color: #8C8A8C;
 	color: white;
 	text-align: center;
 }
@@ -49,11 +49,6 @@ textarea
 	text-align: left;	
 }
 
-.instructional_text
-{
-	color: #362B36;
-	background-color: #F2F5F7;
-}
 
 .smaller_text
 {
@@ -64,12 +59,12 @@ textarea
 {
 	font-size: 0.7em;
 	text-align:center;
-	color: #9C9C9C;
+	color: #8C8A8C;
 }
 
 .inner box
 {
-	border-color: #353535;
+	border-color: #8C8A8C;
         border-width: thin;
 }
 .boxedinstructions
@@ -78,7 +73,7 @@ textarea
 	padding: 5px 5px 5px 5px;
 	border-style: solid;
 	border-width: medium;
-	border-color: #353535;
+	border-color: #8C8A8C;
 }
 .warning
 {
@@ -135,7 +130,7 @@ input_smallint
 }
 
 .header_overview_cell {
-	border-color: #3DABE3;
+	border-color: #E6E6E6;
 	border-style: solid;
 	border-width: 1px;
 	font-size: 75%;
