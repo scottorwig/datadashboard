@@ -1688,7 +1688,7 @@ def generate_srm_xml(request):
     
     all_consequences = list_of_consequences()    
     
-    list_of_students = []
+    list_of_students = ['dummy item to prevent first query from searching all students']
     for consequence in all_consequences:
         if consequence['student_full_string'] not in list_of_students:
             list_of_students.append(consequence['student_full_string'])
